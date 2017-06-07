@@ -21,14 +21,16 @@ public class AgentServer extends KcpServer {
     @Override
     public void handleReceive(ByteBuf bb, KcpOnUdp kcp) {
 
-        int msgSize = bb.readInt();
-        long msgId = bb.readLong();
-        byte msgProt = bb.readByte();
+        int size = bb.readInt();
+        long id = bb.readLong();
+        byte prot = bb.readByte();
+        String token = bb.readBytes(32).toString();
         String content = bb.toString(Charset.forName("utf-8"));
 
-        log.info("msg size: " + msgSize);
-        log.info("msg id: " + msgId);
-        log.info("msg protocol: " + msgProt);
+        log.info("msg size: " + size);
+        log.info("msg id: " + id);
+        log.info("msg protocol: " + prot);
+        log.info("msg token: " + token);
         log.info("msg content: " + content);
 //
 //        MsgProcessor processor = Processors.getProcess(msgProt);

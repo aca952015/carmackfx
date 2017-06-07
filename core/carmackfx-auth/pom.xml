@@ -15,4 +15,11 @@
 
     <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.istudio</groupId>
+            <artifactId>carmackfx-rpc</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

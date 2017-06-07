@@ -1,4 +1,4 @@
-package com.istudio.carmackfx.agent.protocol;
+package com.istudio.carmackfx.commons.protocol;
 
 /**
  * Created by ACA on 2017/6/7.
@@ -6,7 +6,8 @@ package com.istudio.carmackfx.agent.protocol;
 public enum MessageType {
 
     HEARTBEAT(0),
-    AUTH(1);
+    AUTH(1),
+    GAME(2);
 
     private int type;
 

@@ -29,6 +29,13 @@ public class AgentAutoConfiguration {
     }
 
     @Bean
+    public MessageProcessor messageProcessor() {
+
+        MessageProcessor processor = new MessageProcessor();
+        return processor;
+    }
+
+    @Bean
     public AgentHolder agentHolder() {
 
         return new AgentHolder();
