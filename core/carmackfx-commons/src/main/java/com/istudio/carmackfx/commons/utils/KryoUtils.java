@@ -1,4 +1,4 @@
-package com.istudio.carmackfx.rpc.utils;
+package com.istudio.carmackfx.commons.utils;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;

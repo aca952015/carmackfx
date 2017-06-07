@@ -1,4 +1,4 @@
-package com.istudio.carmackfx.rpc.common;
+package com.istudio.carmackfx.commons.base;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

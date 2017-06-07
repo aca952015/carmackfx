@@ -14,8 +14,8 @@ import java.nio.charset.Charset;
 @Log4j
 public class AgentServer extends KcpServer {
 
-    public AgentServer(int port, int workerSize) {
-        super(port, workerSize);
+    public AgentServer(AgentProperties properties) {
+        super(properties.getPort(), properties.getWorkerSize());
     }
 
     @Override

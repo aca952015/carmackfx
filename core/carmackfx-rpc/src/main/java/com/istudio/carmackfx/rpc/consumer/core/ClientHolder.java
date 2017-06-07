@@ -1,6 +1,6 @@
 package com.istudio.carmackfx.rpc.consumer.core;
 
-import com.istudio.carmackfx.rpc.common.BaseHolder;
+import com.istudio.carmackfx.commons.base.BaseHolder;
 import com.istudio.carmackfx.rpc.common.ConfigProperties;
 import com.istudio.carmackfx.rpc.consumer.pool.impl.DirectSocketBuilder;
 import com.istudio.carmackfx.rpc.consumer.pool.impl.DiscoverySocketBuilder;

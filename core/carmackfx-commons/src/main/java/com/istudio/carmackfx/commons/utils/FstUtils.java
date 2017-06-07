@@ -1,4 +1,4 @@
-package com.istudio.carmackfx.rpc.utils;
+package com.istudio.carmackfx.commons.utils;
 
 import org.nustaq.serialization.FSTConfiguration;
 import org.nustaq.serialization.FSTObjectInput;
