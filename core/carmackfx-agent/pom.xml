@@ -20,5 +20,9 @@
             <groupId>org.beykery</groupId>
             <artifactId>jkcp</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
     </dependencies>
 </project>

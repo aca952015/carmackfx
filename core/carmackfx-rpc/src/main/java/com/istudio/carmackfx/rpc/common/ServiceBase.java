@@ -1,6 +1,6 @@
 package com.istudio.carmackfx.rpc.common;
 
-import com.istudio.carmackfx.commons.utils.FstUtils;
+import com.istudio.carmackfx.utils.FstUtils;
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TProtocol;
 
