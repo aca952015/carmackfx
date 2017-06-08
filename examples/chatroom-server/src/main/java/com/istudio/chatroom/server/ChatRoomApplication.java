@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class ChatRoomAgentApplication {
+public class ChatRoomApplication {
 
 	@Bean
 	public AuthProvider authProvider() {
@@ -16,6 +16,6 @@ public class ChatRoomAgentApplication {
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(ChatRoomAgentApplication.class, args);
+		SpringApplication.run(ChatRoomApplication.class, args);
 	}
 }

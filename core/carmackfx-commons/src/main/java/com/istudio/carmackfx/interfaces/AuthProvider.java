@@ -3,7 +3,7 @@ package com.istudio.carmackfx.interfaces;
 /**
  * Created by ACA on 2017-6-7.
  */
-public interface AuthProvider<TIn, TOut> {
+public interface AuthProvider<T> {
 
-    TOut verify(TIn authIn);
+    AuthResult verify(T authIn);
 }

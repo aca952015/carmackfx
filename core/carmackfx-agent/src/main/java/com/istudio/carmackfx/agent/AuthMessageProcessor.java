@@ -19,6 +19,12 @@ public class AuthMessageProcessor implements MessageProcessor {
 
     @Override
     public MessageOut process(MessageIn msgIn) {
+
+        if(authService == null) {
+
+            return null;
+        }
+
         return authService.verify(msgIn);
     }
 }
