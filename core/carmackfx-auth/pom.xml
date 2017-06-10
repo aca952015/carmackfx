@@ -20,6 +20,10 @@
             <groupId>com.istudio</groupId>
             <artifactId>carmackfx-rpc</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

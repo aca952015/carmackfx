@@ -13,6 +13,6 @@ public class MessageIn {
     private long id;
     private int size;
     private MessageType type;
-    private String token;
+    private long token;
     private String data;
 }

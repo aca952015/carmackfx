@@ -15,7 +15,7 @@ public class ChatRoomAuthProvider implements AuthProvider<ChatRoomAuthIn> {
 
         AuthResult result = new AuthResult();
         result.setUsername(authIn.getUsername());
-        result.setToken(UUID.randomUUID().toString());
+        result.setToken(10000L);
 
         return result;
     }

@@ -22,7 +22,12 @@ public class MessageProcessorManager {
 
     public MessageProcessor getProcessor(MessageType type) {
 
-        return null;
+        if(!processors.containsKey(type)) {
+
+            return null;
+        }
+
+        return processors.get(type);
     }
 
     public void register(Collection<MessageProcessor> results) {

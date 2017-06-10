@@ -20,7 +20,7 @@ import java.nio.charset.Charset;
 public class AgentServer extends KcpServer {
 
     private static final Charset charset = Charset.forName("utf-8");
-    private static final int offset = 4 + 8 + 1;
+    private static final int offset = 13;
 
     @Autowired
     private MessageProcessorManager processorManager;
@@ -38,7 +38,7 @@ public class AgentServer extends KcpServer {
             msgIn.setSize(bufferIn.readInt());
             msgIn.setId(bufferIn.readLong());
             msgIn.setType(MessageType.valueOf(bufferIn.readByte()));
-            msgIn.setToken(bufferIn.readBytes(32).toString(charset));
+            msgIn.setToken(bufferIn.readLong());
             msgIn.setData(bufferIn.toString(charset));
 
             MessageOut msgOut = null;
@@ -53,7 +53,7 @@ public class AgentServer extends KcpServer {
 
                 msgOut = new MessageOut();
                 msgOut.setId(msgIn.getId());
-                msgOut.setSuccess((byte)0);
+                msgOut.setSuccess((byte)1);
             }
 
             byte[] data = msgOut.getData() == null ? null : msgOut.getData().getBytes(charset);
