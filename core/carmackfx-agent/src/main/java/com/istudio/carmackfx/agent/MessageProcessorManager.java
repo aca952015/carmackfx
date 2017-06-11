@@ -1,7 +1,6 @@
 package com.istudio.carmackfx.agent;
 
 import com.istudio.carmackfx.annotation.TProcessor;
-import com.istudio.carmackfx.protocol.MessageProcessor;
 import com.istudio.carmackfx.protocol.MessageType;
 
 import java.util.Collection;

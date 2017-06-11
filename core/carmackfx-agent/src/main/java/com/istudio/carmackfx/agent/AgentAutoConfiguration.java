@@ -1,6 +1,6 @@
 package com.istudio.carmackfx.agent;
 
-import com.istudio.carmackfx.protocol.MessageProcessor;
+import com.istudio.carmackfx.callback.ClientManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -39,6 +39,18 @@ public class AgentAutoConfiguration {
 
         MessageProcessorManager manager = new MessageProcessorManager();
         return manager;
+    }
+
+    @Bean
+    public SessionManager sessionManager() {
+
+        return new SessionManager();
+    }
+
+    @Bean
+    public ClientManager clientManager() {
+
+        return new ClientManagerImpl();
     }
 
     @Bean

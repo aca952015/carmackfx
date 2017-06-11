@@ -1,7 +1,6 @@
 package com.istudio.carmackfx.agent;
 
 import com.istudio.carmackfx.config.BaseHolder;
-import com.istudio.carmackfx.protocol.MessageProcessor;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 

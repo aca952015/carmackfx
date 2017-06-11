@@ -18,10 +18,12 @@ import java.lang.reflect.Method;
 @Log4j
 public class AuthServiceImpl implements AuthService {
 
-    @Autowired
+    @Autowired(required = false)
     private AuthProvider authProvider;
 
     private Class<?> authParameterType;
+
+    private long seed = 1;
 
     @Override
     public MessageOut verify(MessageIn msgIn) {
@@ -41,12 +43,14 @@ public class AuthServiceImpl implements AuthService {
         }
 
         try {
+
             AuthResult result = authProvider.verify(JSON.parseObject(msgIn.getData(), authParameterType));
 
             MessageOut msgOut = new MessageOut();
             msgOut.setId(msgIn.getId());
-            msgOut.setSuccess((byte)((result.getToken() != 0L) ? 0 : 1));
+            msgOut.setSuccess((byte)(result.isSuccess() ? 0 : 1));
             msgOut.setData(JSON.toJSONString(result));
+            msgOut.setToken(seed++);
 
             return msgOut;
         } catch (Exception e) {

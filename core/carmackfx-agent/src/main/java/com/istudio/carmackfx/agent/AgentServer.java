@@ -2,7 +2,6 @@ package com.istudio.carmackfx.agent;
 
 import com.istudio.carmackfx.protocol.MessageIn;
 import com.istudio.carmackfx.protocol.MessageOut;
-import com.istudio.carmackfx.protocol.MessageProcessor;
 import com.istudio.carmackfx.protocol.MessageType;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.PooledByteBufAllocator;
@@ -12,6 +11,8 @@ import org.beykery.jkcp.KcpServer;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.nio.charset.Charset;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by ACA on 2017/6/7.
@@ -20,10 +21,13 @@ import java.nio.charset.Charset;
 public class AgentServer extends KcpServer {
 
     private static final Charset charset = Charset.forName("utf-8");
-    private static final int offset = 13;
+    private static final int offset = 14;
 
     @Autowired
     private MessageProcessorManager processorManager;
+
+    @Autowired
+    private SessionManager sessionManager;
 
     public AgentServer(AgentProperties properties) {
         super(properties.getPort(), properties.getWorkerSize());
@@ -46,13 +50,16 @@ public class AgentServer extends KcpServer {
             MessageProcessor processor = processorManager.getProcessor(msgIn.getType());
             if (processor!= null) {
 
-                msgOut = processor.process(msgIn);
+                msgOut = processor.process(kcp, msgIn);
+                msgOut.setId(msgIn.getId());
+                msgOut.setMode((byte)0);
             }
 
             if(msgOut == null) {
 
                 msgOut = new MessageOut();
                 msgOut.setId(msgIn.getId());
+                msgOut.setMode((byte)0);
                 msgOut.setSuccess((byte)1);
             }
 
@@ -61,8 +68,12 @@ public class AgentServer extends KcpServer {
             ByteBuf bufferOut = PooledByteBufAllocator.DEFAULT.buffer(1500);
             bufferOut.writeInt(data == null ? 0 : data.length + offset);
             bufferOut.writeLong(msgOut.getId());
+            bufferOut.writeByte(msgOut.getMode());
             bufferOut.writeByte(msgOut.getSuccess());
-            bufferOut.writeBytes(data);
+
+            if(data != null) {
+                bufferOut.writeBytes(data);
+            }
 
             kcp.send(bufferOut);
 
@@ -78,5 +89,7 @@ public class AgentServer extends KcpServer {
 
     @Override
     public void handleClose(KcpOnUdp kcp) {
+
+        sessionManager.clearSession(kcp);
     }
 }

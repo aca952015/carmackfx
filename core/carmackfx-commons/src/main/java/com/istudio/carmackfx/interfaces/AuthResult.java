@@ -11,5 +11,5 @@ import lombok.Setter;
 public class AuthResult {
 
     private String username;
-    private long token;
+    private boolean success;
 }
