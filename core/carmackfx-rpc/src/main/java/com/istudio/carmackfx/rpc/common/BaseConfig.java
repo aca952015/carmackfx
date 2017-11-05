@@ -1,7 +1,7 @@
 package com.istudio.carmackfx.rpc.common;
 
-import com.istudio.carmackfx.utils.PackageUtils;
 import com.istudio.carmackfx.annotation.TService;
+import com.istudio.carmackfx.utils.PackageUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 

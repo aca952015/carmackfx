@@ -1,7 +1,7 @@
 package com.istudio.carmackfx.rpc.provider.core;
 
 import com.istudio.carmackfx.rpc.common.ServiceFunctionDefinition;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TApplicationException;
 import org.apache.thrift.TException;
 import org.apache.thrift.protocol.TMessage;
@@ -13,7 +13,7 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * Created by ACA on 2017/5/25.
  */
-@Log4j
+@Slf4j
 public class ServerFunction {
 
     private final Class iface;
@@ -52,13 +52,13 @@ public class ServerFunction {
         try {
             result = this.getResult(values);
 
-        } catch (Exception var10) {
+        } catch (Exception e) {
 
-            log.error("Internal error processing " + this.def.getMethodName(), var10);
+            log.error("Internal error processing " + this.def.getMethodName(), e);
 
             if(!this.isOneway()) {
 
-                TApplicationException x = new TApplicationException(6, "Internal error processing " + this.def.getMethodName());
+                TApplicationException x = new TApplicationException(6, e.getCause().getMessage());
                 oprot.writeMessageBegin(new TMessage(this.def.getMethodName(), (byte)3, seqid));
                 x.write(oprot);
                 oprot.writeMessageEnd();

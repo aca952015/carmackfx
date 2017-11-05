@@ -3,10 +3,10 @@ package com.istudio.carmackfx.rpc.consumer;
 import com.istudio.carmackfx.rpc.common.BaseConfig;
 import com.istudio.carmackfx.rpc.common.ServiceDefinition;
 import com.istudio.carmackfx.rpc.consumer.core.ClientHolder;
+import com.istudio.carmackfx.rpc.consumer.core.ServiceClientManager;
 import com.istudio.carmackfx.rpc.consumer.core.ServiceFactory;
 import com.istudio.carmackfx.rpc.consumer.core.ServiceManager;
-import com.istudio.carmackfx.rpc.consumer.core.ServiceClientManager;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.protocol.TProtocolFactory;
 import org.apache.thrift.transport.TTransportFactory;
 import org.springframework.beans.BeansException;
@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Bean;
 /**
  * Created by ACA on 2017-5-22.
  */
-@Log4j(topic = "thrift client config")
+@Slf4j(topic = "thrift client config")
 public class ClientConfig extends BaseConfig implements BeanDefinitionRegistryPostProcessor {
 
     @Bean

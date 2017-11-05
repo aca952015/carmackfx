@@ -2,15 +2,16 @@ package com.istudio.carmackfx.rpc.consumer.core;
 
 import com.istudio.carmackfx.config.BaseHolder;
 import com.istudio.carmackfx.rpc.common.ConfigProperties;
+import com.istudio.carmackfx.rpc.consumer.discovery.ServiceDiscoveryFactory;
 import com.istudio.carmackfx.rpc.consumer.pool.impl.DirectSocketBuilder;
 import com.istudio.carmackfx.rpc.consumer.pool.impl.DiscoverySocketBuilder;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by ACA on 2017-5-22.
  */
-@Log4j(topic = "thrift holder")
+@Slf4j(topic = "thrift holder")
 public class ClientHolder extends BaseHolder {
 
     @Autowired
@@ -26,7 +27,7 @@ public class ClientHolder extends BaseHolder {
 
             DiscoverySocketBuilder builder = new DiscoverySocketBuilder();
             builder.setProperties(properties);
-            builder.init();
+            builder.setServiceDiscovery(ServiceDiscoveryFactory.build(properties));
 
             clientManager.setSocketBuilder(builder);
         } else {

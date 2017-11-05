@@ -4,7 +4,10 @@ import com.istudio.carmackfx.config.BaseHolder;
 import com.istudio.carmackfx.rpc.common.ConfigProperties;
 import com.istudio.carmackfx.rpc.common.ServiceDefinition;
 import com.istudio.carmackfx.rpc.provider.ServerConfig;
-import lombok.extern.log4j.Log4j;
+import com.istudio.carmackfx.rpc.provider.register.ServiceRegister;
+import com.istudio.carmackfx.rpc.provider.register.ServiceRegisterEntry;
+import com.istudio.carmackfx.rpc.provider.register.ServiceRegisterEntryFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TMultiplexedProcessor;
 import org.apache.thrift.transport.TTransportException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * Created by ACA on 2017/5/22.
  */
-@Log4j(topic = "thrift server holder")
+@Slf4j(topic = "thrift server holder")
 public class ServerHolder extends BaseHolder {
 
     private ServerConfig config;
@@ -21,7 +24,7 @@ public class ServerHolder extends BaseHolder {
     private ServerContainer container;
 
     @Autowired
-    private ServerRegister register;
+    private ServiceRegister register;
 
     @Autowired
     private ConfigProperties properties;
@@ -51,7 +54,7 @@ public class ServerHolder extends BaseHolder {
 
             for (Class service : services) {
 
-                //处理器关联业务实现
+                // 处理器关联业务实现
                 if (service.getInterfaces().length == 0) {
                     continue;
                 }
@@ -75,7 +78,11 @@ public class ServerHolder extends BaseHolder {
 
             if(properties.isDiscoveryEnabled()) {
 
-                register.init();
+                ServiceRegisterEntry entry = ServiceRegisterEntryFactory.build(properties);
+                if(entry != null) {
+                    register.setEntry(entry);
+                    register.init();
+                }
             }
         }
     }

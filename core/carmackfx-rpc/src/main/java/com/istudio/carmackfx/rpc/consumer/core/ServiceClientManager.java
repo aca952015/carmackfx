@@ -1,10 +1,9 @@
 package com.istudio.carmackfx.rpc.consumer.core;
 
-
 import com.istudio.carmackfx.rpc.consumer.pool.PooledProtocolFactory;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.apache.thrift.protocol.TProtocol;
@@ -20,7 +19,7 @@ import java.util.Map;
  */
 @Getter
 @Setter
-@Log4j
+@Slf4j
 public class ServiceClientManager {
 
     private final Map<Class, GenericObjectPool<TProtocol>> connectionPoolMap;

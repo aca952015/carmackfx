@@ -17,6 +17,8 @@ public class ServerMessageProcessor implements MessageProcessor {
     @Override
     public MessageOut process(KcpOnUdp client, MessageIn msgIn) {
 
-        JSON.parseObject()
+        //JSON.parseObject()
+
+        return null;
     }
 }

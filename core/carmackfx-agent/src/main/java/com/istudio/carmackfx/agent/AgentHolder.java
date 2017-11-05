@@ -1,7 +1,7 @@
 package com.istudio.carmackfx.agent;
 
 import com.istudio.carmackfx.config.BaseHolder;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Created by ACA on 2017-6-7.
  */
-@Log4j
+@Slf4j
 public class AgentHolder extends BaseHolder {
 
     @Autowired

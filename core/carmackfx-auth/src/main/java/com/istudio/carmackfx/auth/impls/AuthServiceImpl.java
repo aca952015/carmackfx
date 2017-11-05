@@ -7,7 +7,7 @@ import com.istudio.carmackfx.interfaces.AuthService;
 import com.istudio.carmackfx.protocol.MessageIn;
 import com.istudio.carmackfx.protocol.MessageOut;
 import com.istudio.carmackfx.utils.ClassUtils;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.Method;
@@ -15,7 +15,7 @@ import java.lang.reflect.Method;
 /**
  * Created by ACA on 2017/6/8.
  */
-@Log4j
+@Slf4j
 public class AuthServiceImpl implements AuthService {
 
     @Autowired(required = false)

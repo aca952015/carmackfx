@@ -7,7 +7,8 @@ import com.istudio.carmackfx.protocol.MessageOut;
 import com.istudio.carmackfx.protocol.MessageType;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.PooledByteBufAllocator;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.Slf4j;
 import org.beykery.jkcp.KcpOnUdp;
 import org.beykery.jkcp.KcpServer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import java.util.Map;
 /**
  * Created by ACA on 2017/6/7.
  */
-@Log4j
+@Slf4j
 public class AgentServer extends KcpServer {
 
     private static final Charset charset = Charset.forName("utf-8");

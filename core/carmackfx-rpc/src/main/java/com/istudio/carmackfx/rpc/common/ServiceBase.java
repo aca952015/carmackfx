@@ -48,6 +48,10 @@ public abstract class ServiceBase {
 
     protected void write(TProtocol oprot, Object value, Class type) throws TException {
 
+        if(type == null) {
+            return;
+        }
+
         if(type.isAssignableFrom(short.class)) {
 
             oprot.writeI16((short)value);

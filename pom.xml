@@ -13,7 +13,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.3.RELEASE</version>
+        <version>1.5.8.RELEASE</version>
     </parent>
 
     <modules>
@@ -22,6 +22,7 @@
         <module>core/carmackfx-auth</module>
         <module>core/carmackfx-commons</module>
         <module>examples/chatroom-server</module>
+        <module>examples/game-server</module>
     </modules>
 
     <properties>
@@ -43,6 +44,9 @@
         <zookeeper.version>3.4.10</zookeeper.version>
         <curator.version>2.12.0</curator.version>
         <pool.version>2.4.2</pool.version>
+        <eureka.version>1.7.0</eureka.version>
+        <inject.version>1</inject.version>
+        <etcd.version>2.13.0</etcd.version>
         <jkcp.version>1.2.3</jkcp.version>
     </properties>
 
@@ -71,6 +75,11 @@
         <dependency>
             <groupId>com.istudio</groupId>
             <artifactId>carmackfx-commons</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>${inject.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -154,6 +163,16 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-pool2</artifactId>
                 <version>${pool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.netflix.eureka</groupId>
+                <artifactId>eureka-client</artifactId>
+                <version>${eureka.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mousio</groupId>
+                <artifactId>etcd4j</artifactId>
+                <version>${etcd.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.beykery</groupId>

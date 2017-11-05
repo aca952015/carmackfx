@@ -1,6 +1,5 @@
 package com.istudio.carmackfx.rpc.consumer.pool;
 
-
 import com.istudio.carmackfx.rpc.consumer.core.SocketBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -42,7 +41,7 @@ public class PooledProtocolFactory implements PooledObjectFactory<TProtocol> {
     @Override
     public void destroyObject(PooledObject<TProtocol> p) throws Exception {
         TProtocol tProtocol = p.getObject();
-        if(tProtocol.getTransport().isOpen()){
+        if (tProtocol.getTransport().isOpen()) {
             tProtocol.getTransport().close();
         }
     }

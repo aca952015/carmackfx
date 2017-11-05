@@ -2,7 +2,7 @@ package com.istudio.carmackfx.rpc.provider.core;
 
 import com.istudio.carmackfx.rpc.common.ConfigProperties;
 import com.istudio.carmackfx.rpc.provider.ServerConfig;
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TProcessor;
 import org.apache.thrift.protocol.TCompactProtocol;
 import org.apache.thrift.server.TNonblockingServer;
@@ -10,12 +10,11 @@ import org.apache.thrift.server.TServer;
 import org.apache.thrift.transport.TFramedTransport;
 import org.apache.thrift.transport.TNonblockingServerSocket;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 /**
  * Created by ACA on 2017-5-28.
  */
-@Log4j
+@Slf4j
 public class ServerContainer {
 
     private ServerConfig config;
@@ -60,7 +59,7 @@ public class ServerContainer {
                 server = new TNonblockingServer(tArgs);
                 server.serve(); // 启动服务
             } catch (Exception ex) {
-                log.error(ex);
+                log.error("failed to start", ex);
             }
         });
 
@@ -73,7 +72,7 @@ public class ServerContainer {
                 server.stop();
             }
         } catch (Exception e) {
-            log.error(e);
+            log.error("failed to stop.", e);
         }
     }
 }

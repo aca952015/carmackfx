@@ -6,7 +6,6 @@ import com.istudio.carmackfx.rpc.consumer.core.SocketFactory;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.thrift.transport.TSocket;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by ACA on 2017-5-28.
