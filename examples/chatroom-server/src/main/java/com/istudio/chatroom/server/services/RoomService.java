@@ -1,4 +1,4 @@
-package com.istudio.chatroom.server.Game;
+package com.istudio.chatroom.server.services;
 
 import com.istudio.carmackfx.annotation.TContext;
 import com.istudio.carmackfx.annotation.TService;
@@ -31,7 +31,10 @@ public class RoomService {
         for (Long token : onlineUsers.keySet()) {
 
             ClientCallback client = clientManager.getCallback(token, ClientCallback.class);
-            client.broadcast(welcome);
+            if(client != null) {
+
+                client.broadcast(welcome);
+            }
         }
     }
 }

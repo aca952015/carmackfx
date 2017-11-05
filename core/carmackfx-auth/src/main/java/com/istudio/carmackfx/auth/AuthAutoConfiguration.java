@@ -1,5 +1,6 @@
 package com.istudio.carmackfx.auth;
 
+import com.istudio.carmackfx.auth.impls.AuthServiceImpl;
 import com.istudio.carmackfx.interfaces.AuthService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

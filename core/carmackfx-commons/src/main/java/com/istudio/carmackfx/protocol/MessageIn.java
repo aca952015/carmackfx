@@ -2,6 +2,7 @@ package com.istudio.carmackfx.protocol;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.util.StringUtils;
 
 /**
  * Created by ACA on 2017-6-7.

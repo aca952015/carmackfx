@@ -1,4 +1,4 @@
-package com.istudio.chatroom.server.Auth;
+package com.istudio.chatroom.server.auth;
 
 import lombok.Getter;
 import lombok.Setter;

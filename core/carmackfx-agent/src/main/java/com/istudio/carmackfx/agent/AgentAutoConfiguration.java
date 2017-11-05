@@ -1,5 +1,7 @@
 package com.istudio.carmackfx.agent;
 
+import com.istudio.carmackfx.agent.impls.ClientManagerImpl;
+import com.istudio.carmackfx.agent.processors.AuthMessageProcessor;
 import com.istudio.carmackfx.callback.ClientManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

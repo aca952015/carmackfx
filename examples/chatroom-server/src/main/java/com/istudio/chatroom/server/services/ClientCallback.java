@@ -1,4 +1,4 @@
-package com.istudio.chatroom.server.Game;
+package com.istudio.chatroom.server.services;
 
 import com.istudio.carmackfx.annotation.TCallback;
 

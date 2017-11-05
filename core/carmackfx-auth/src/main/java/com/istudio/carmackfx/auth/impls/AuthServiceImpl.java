@@ -1,4 +1,4 @@
-package com.istudio.carmackfx.auth;
+package com.istudio.carmackfx.auth.impls;
 
 import com.alibaba.fastjson.JSON;
 import com.istudio.carmackfx.interfaces.AuthProvider;
@@ -55,7 +55,7 @@ public class AuthServiceImpl implements AuthService {
             return msgOut;
         } catch (Exception e) {
 
-            log.error("Auth failed.", e);
+            log.error("auth failed.", e);
 
             return null;
         }

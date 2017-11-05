@@ -1,5 +1,7 @@
 package com.istudio.carmackfx.agent;
 
+import com.alibaba.fastjson.JSON;
+import com.istudio.carmackfx.protocol.MessageErrorContent;
 import com.istudio.carmackfx.protocol.MessageIn;
 import com.istudio.carmackfx.protocol.MessageOut;
 import com.istudio.carmackfx.protocol.MessageType;
@@ -9,6 +11,7 @@ import lombok.extern.log4j.Log4j;
 import org.beykery.jkcp.KcpOnUdp;
 import org.beykery.jkcp.KcpServer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import java.nio.charset.Charset;
 import java.util.HashMap;
@@ -45,6 +48,27 @@ public class AgentServer extends KcpServer {
             msgIn.setToken(bufferIn.readLong());
             msgIn.setData(bufferIn.toString(charset));
 
+            if(msgIn.getType() == null) {
+                throw new IllegalArgumentException("message type can not be null.");
+            }
+
+            if(msgIn.getType().equals(MessageType.AUTH) && StringUtils.isEmpty(msgIn.getData())) {
+                throw new IllegalArgumentException("auth data can not be null.");
+            }
+
+            if(msgIn.getType().equals(MessageType.SERVER)) {
+
+                if(msgIn.getToken() <= 0) {
+                    throw new IllegalArgumentException("token can not be null.");
+                }
+
+                if(sessionManager.getSession(kcp) == null
+                        || sessionManager.getSession(kcp).getLeft() != msgIn.getToken()) {
+
+                    throw new IllegalArgumentException("token invalid.");
+                }
+            }
+
             MessageOut msgOut = null;
 
             MessageProcessor processor = processorManager.getProcessor(msgIn.getType());
@@ -63,24 +87,48 @@ public class AgentServer extends KcpServer {
                 msgOut.setSuccess((byte)1);
             }
 
-            byte[] data = msgOut.getData() == null ? null : msgOut.getData().getBytes(charset);
-
-            ByteBuf bufferOut = PooledByteBufAllocator.DEFAULT.buffer(1500);
-            bufferOut.writeInt(data == null ? 0 : data.length + offset);
-            bufferOut.writeLong(msgOut.getId());
-            bufferOut.writeByte(msgOut.getMode());
-            bufferOut.writeByte(msgOut.getSuccess());
-
-            if(data != null) {
-                bufferOut.writeBytes(data);
-            }
-
-            kcp.send(bufferOut);
+            send(kcp, msgOut);
 
         } catch(Exception e) {
 
             log.error("Process message failed.", e);
+
+            MessageErrorContent errorContent = new MessageErrorContent();
+            errorContent.setErrorCode("SERVER_ERROR");
+
+            if(e instanceof IllegalArgumentException) {
+
+                errorContent.setErrorMessage(e.getMessage());
+            } else {
+
+                errorContent.setErrorMessage("SERVER_ERROR");
+            }
+
+            MessageOut msgOut = new MessageOut();
+            msgOut.setId(-1);
+            msgOut.setMode((byte)2);
+            msgOut.setSuccess((byte)1);
+            msgOut.setData(JSON.toJSONString(errorContent));
+
+            send(kcp, msgOut);
         }
+    }
+
+    private void send(KcpOnUdp kcp, MessageOut msgOut) {
+
+        byte[] data = msgOut.getData() == null ? null : msgOut.getData().getBytes(charset);
+
+        ByteBuf bufferOut = PooledByteBufAllocator.DEFAULT.buffer(1500);
+        bufferOut.writeInt(data == null ? 0 : data.length + offset);
+        bufferOut.writeLong(msgOut.getId());
+        bufferOut.writeByte(msgOut.getMode());
+        bufferOut.writeByte(msgOut.getSuccess());
+
+        if(data != null) {
+            bufferOut.writeBytes(data);
+        }
+
+        kcp.send(bufferOut);
     }
 
     @Override

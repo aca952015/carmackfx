@@ -1,7 +1,7 @@
 package com.istudio.chatroom.server;
 
 import com.istudio.carmackfx.interfaces.AuthProvider;
-import com.istudio.chatroom.server.Auth.ChatRoomAuthProvider;
+import com.istudio.chatroom.server.auth.ChatRoomAuthProvider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

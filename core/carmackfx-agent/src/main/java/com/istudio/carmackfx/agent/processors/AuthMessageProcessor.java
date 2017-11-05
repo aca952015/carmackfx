@@ -1,5 +1,7 @@
-package com.istudio.carmackfx.agent;
+package com.istudio.carmackfx.agent.processors;
 
+import com.istudio.carmackfx.agent.MessageProcessor;
+import com.istudio.carmackfx.agent.SessionManager;
 import com.istudio.carmackfx.annotation.TProcessor;
 import com.istudio.carmackfx.interfaces.AuthService;
 import com.istudio.carmackfx.protocol.MessageIn;

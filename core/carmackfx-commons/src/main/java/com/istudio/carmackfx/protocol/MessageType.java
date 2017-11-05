@@ -7,7 +7,7 @@ public enum MessageType {
 
     HEARTBEAT(0),
     AUTH(1),
-    GAME(2);
+    SERVER(2);
 
     private int type;
 
