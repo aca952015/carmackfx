@@ -95,14 +95,21 @@ public class AgentServer extends KcpServer {
             log.error("Process message failed.", e);
 
             MessageErrorContent errorContent = new MessageErrorContent();
-            errorContent.setErrorCode("SERVER_ERROR");
 
             if(e instanceof IllegalArgumentException) {
 
-                errorContent.setErrorMessage(e.getMessage());
+                errorContent.setErrorCode(ErrorCodes.ILLEGAL_ARGUMENT.getCode());
+                errorContent.setErrorMessage(ErrorCodes.ILLEGAL_ARGUMENT.getMessage() + ": " + e.getMessage());
+            } if(e instanceof AgentException) {
+
+                AgentException ex = (AgentException)e;
+
+                errorContent.setErrorCode(ex.getErrorCode());
+                errorContent.setErrorMessage(ex.getMessage());
             } else {
 
-                errorContent.setErrorMessage("SERVER_ERROR");
+                errorContent.setErrorCode(ErrorCodes.SERVER_ERROR.getCode());
+                errorContent.setErrorMessage(ErrorCodes.SERVER_ERROR.getMessage());
             }
 
             MessageOut msgOut = new MessageOut();
@@ -134,6 +141,8 @@ public class AgentServer extends KcpServer {
 
     @Override
     public void handleException(Throwable ex, KcpOnUdp kcp) {
+
+        log.error("handle exception.", ex);
     }
 
     @Override

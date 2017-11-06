@@ -32,13 +32,13 @@ public class RoomService {
 
         String welcome = context.getUsername() + "进入聊天室";
 
-        for (Long token : onlineUsers.keySet()) {
-
-            ClientCallback client = clientManager.getCallback(token, ClientCallback.class);
-            if(client != null) {
-
-                client.broadcast(welcome);
-            }
-        }
+//        for (Long token : onlineUsers.keySet()) {
+//
+//            ClientCallback client = clientManager.getCallback(token, ClientCallback.class);
+//            if(client != null) {
+//
+//                client.broadcast(welcome);
+//            }
+//        }
     }
 }

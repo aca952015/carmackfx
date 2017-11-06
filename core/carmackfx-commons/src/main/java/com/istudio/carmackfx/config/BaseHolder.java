@@ -25,12 +25,12 @@ public abstract class BaseHolder implements ApplicationContextAware {
     protected abstract void doInit();
 
     // 获取applicationContext
-    protected ApplicationContext getContext() {
+    public ApplicationContext getContext() {
         return context;
     }
 
     // 通过name获取 Bean.
-    protected Object getBean(String name) {
+    public Object getBean(String name) {
         try {
             return getContext().getBean(name);
         }
@@ -40,7 +40,7 @@ public abstract class BaseHolder implements ApplicationContextAware {
     }
 
     // 通过class获取Bean.
-    protected <T> T getBean(Class<T> clazz) {
+    public <T> T getBean(Class<T> clazz) {
         try {
             return getContext().getBean(clazz);
         } catch (Exception e) {
@@ -49,7 +49,7 @@ public abstract class BaseHolder implements ApplicationContextAware {
     }
 
     // 通过name,以及Clazz返回指定的Bean
-    protected <T> T getBean(String name, Class<T> clazz) {
+    public <T> T getBean(String name, Class<T> clazz) {
         try {
             return getContext().getBean(name, clazz);
         } catch (Exception e) {

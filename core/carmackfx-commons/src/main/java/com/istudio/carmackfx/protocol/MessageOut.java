@@ -12,8 +12,8 @@ public class MessageOut {
 
     private int size;
     private long id;
-    private byte mode;
-    private byte success;
+    private byte mode;              //
+    private byte success;           // 0: true, 1: false
     private String data;
     private long token;
 }

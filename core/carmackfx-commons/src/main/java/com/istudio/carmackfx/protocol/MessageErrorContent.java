@@ -10,6 +10,6 @@ import lombok.Setter;
 @Setter
 public class MessageErrorContent {
 
-    private String errorCode;
+    private int errorCode;
     private String errorMessage;
 }
