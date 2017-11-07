@@ -13,5 +13,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface TProcessor {
-    MessageType type() default MessageType.SERVER;
+    MessageType type() default MessageType.INTERNAL;
 }

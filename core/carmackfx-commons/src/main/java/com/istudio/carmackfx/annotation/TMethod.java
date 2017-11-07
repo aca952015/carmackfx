@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
  * Created by ACA on 2017-6-11.
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.PARAMETER)
-public @interface TParam {
+@Target(ElementType.METHOD)
+public @interface TMethod {
     String value() default "";
 }

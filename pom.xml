@@ -19,7 +19,6 @@
     <modules>
         <module>core/carmackfx-rpc</module>
         <module>core/carmackfx-agent</module>
-        <module>core/carmackfx-auth</module>
         <module>core/carmackfx-commons</module>
         <module>examples/chatroom-server</module>
         <module>examples/game-server</module>
@@ -47,7 +46,7 @@
         <eureka.version>1.7.0</eureka.version>
         <inject.version>1</inject.version>
         <etcd.version>2.13.0</etcd.version>
-        <jkcp.version>1.2.3</jkcp.version>
+        <jkcp.version>1.2.4</jkcp.version>
     </properties>
 
     <repositories>
@@ -197,11 +196,6 @@
             <dependency>
                 <groupId>com.istudio</groupId>
                 <artifactId>carmackfx-agent</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.istudio</groupId>
-                <artifactId>carmackfx-auth</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

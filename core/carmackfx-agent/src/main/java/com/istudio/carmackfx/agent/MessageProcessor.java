@@ -9,5 +9,5 @@ import org.beykery.jkcp.KcpOnUdp;
  */
 public interface MessageProcessor {
 
-    MessageOut process(KcpOnUdp client, MessageIn msgIn);
+    MessageOut process(KcpOnUdp client, MessageIn msgIn) throws AgentException;
 }

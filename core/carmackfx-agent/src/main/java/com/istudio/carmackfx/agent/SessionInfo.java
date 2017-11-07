@@ -1,14 +1,11 @@
-package com.istudio.carmackfx.protocol;
+package com.istudio.carmackfx.agent;
 
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * Created by ACA on 2017-6-11.
- */
 @Getter
 @Setter
-public class MessageContext {
+public class SessionInfo {
 
     private String sessionId;
     private long token;

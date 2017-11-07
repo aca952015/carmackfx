@@ -28,10 +28,6 @@
 			<groupId>com.istudio</groupId>
 			<artifactId>carmackfx-agent</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.istudio</groupId>
-			<artifactId>carmackfx-auth</artifactId>
-		</dependency>
 	</dependencies>
 
 	<build>

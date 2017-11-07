@@ -1,8 +1,9 @@
 package com.istudio.carmackfx.agent;
 
-import com.istudio.carmackfx.agent.impls.ClientManagerImpl;
-import com.istudio.carmackfx.agent.processors.AuthMessageProcessor;
-import com.istudio.carmackfx.agent.processors.ServerMessageProcessor;
+import com.istudio.carmackfx.agent.impls.DefaultClientManager;
+import com.istudio.carmackfx.agent.processors.InternalMessageProcessor;
+import com.istudio.carmackfx.agent.processors.SecurityMessageProcessor;
+import com.istudio.carmackfx.agent.processors.PublicMessageProcessor;
 import com.istudio.carmackfx.callback.ClientManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -33,13 +34,18 @@ public class AgentAutoConfiguration {
     }
 
     @Bean
-    public MessageProcessor authMessageProcessor() {
-        return new AuthMessageProcessor();
+    public SecurityMessageProcessor securityMessageProcessor() {
+        return new SecurityMessageProcessor();
     }
 
     @Bean
-    public MessageProcessor serverMessageProcessor() {
-        return new ServerMessageProcessor();
+    public MessageProcessor publicMessageProcessor() {
+        return new PublicMessageProcessor();
+    }
+
+    @Bean
+    public MessageProcessor internalMessageProcessor() {
+        return new InternalMessageProcessor();
     }
 
     @Bean
@@ -58,7 +64,7 @@ public class AgentAutoConfiguration {
     @Bean
     public ClientManager clientManager() {
 
-        return new ClientManagerImpl();
+        return new DefaultClientManager();
     }
 
     @Bean

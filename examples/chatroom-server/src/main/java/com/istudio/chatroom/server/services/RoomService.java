@@ -1,7 +1,8 @@
 package com.istudio.chatroom.server.services;
 
 import com.istudio.carmackfx.annotation.TContext;
-import com.istudio.carmackfx.annotation.TService;
+import com.istudio.carmackfx.annotation.TMethod;
+import com.istudio.carmackfx.annotation.TParam;
 import com.istudio.carmackfx.callback.ClientManager;
 import com.istudio.carmackfx.protocol.MessageContext;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +15,6 @@ import java.util.Map;
 /**
  * Created by ACA on 2017-6-10.
  */
-@TService
 @Component("RoomService")
 @Slf4j
 public class RoomService {
@@ -24,6 +24,7 @@ public class RoomService {
 
     private final Map<Long, String> onlineUsers = new HashMap<>();
 
+    @TMethod("Join")
     public void join(@TContext MessageContext context) {
 
         log.info("user join {}", context.getUsername());
@@ -40,5 +41,10 @@ public class RoomService {
 //                client.broadcast(welcome);
 //            }
 //        }
+    }
+
+    @TMethod("Chat")
+    public void chat(@TContext MessageContext context, @TParam("msg") String msg) {
+
     }
 }

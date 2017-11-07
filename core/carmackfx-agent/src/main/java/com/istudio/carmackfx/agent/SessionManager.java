@@ -9,21 +9,21 @@ import org.beykery.jkcp.KcpOnUdp;
  */
 public class SessionManager {
 
-    private final PairSet<Long, KcpOnUdp> sessions = new PairSet<>();
+    private final PairSet<KcpOnUdp, SessionInfo> sessions = new PairSet<>();
 
-    public void createSession(Long token, KcpOnUdp client) {
+    public void createSession(KcpOnUdp client, SessionInfo sessionInfo) {
 
-        Pair<Long, KcpOnUdp> pair = new Pair<>(token, client);
+        Pair<KcpOnUdp, SessionInfo> pair = new Pair<>(client, sessionInfo);
 
         sessions.add(pair);
     }
 
-    public Pair<Long, KcpOnUdp> getSession(KcpOnUdp client) {
+    public Pair<KcpOnUdp, SessionInfo> getSession(KcpOnUdp client) {
 
-        Long token = sessions.findLeft(client);
-        if(token != null) {
+        SessionInfo sessionInfo = sessions.findRight(client);
+        if(sessionInfo != null) {
 
-            return new Pair<>(token, client);
+            return new Pair<>(client, sessionInfo);
         }
 
         return null;
@@ -31,12 +31,26 @@ public class SessionManager {
 
     public void clearSession(KcpOnUdp kcp) {
 
-        Long token = sessions.findLeft(kcp);
-        if(token != null) {
+        SessionInfo sessionInfo = sessions.findRight(kcp);
+        if(sessionInfo != null) {
 
-            Pair<Long, KcpOnUdp> pair = new Pair<>(token, kcp);
+            Pair<KcpOnUdp, SessionInfo> pair = new Pair<>(kcp, sessionInfo);
 
             sessions.remove(pair);
         }
+    }
+
+    public boolean contains(KcpOnUdp client) {
+        
+        return sessions.contains(client);
+    }
+    
+    public SessionInfo getValue(KcpOnUdp client) {
+        
+        if(!contains(client)) {
+            return null;
+        }
+        
+        return getSession(client).getRight();
     }
 }

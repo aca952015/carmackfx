@@ -1,4 +1,4 @@
-package com.istudio.game.server.auth;
+package com.istudio.game.server.security;
 
 import lombok.Getter;
 import lombok.Setter;

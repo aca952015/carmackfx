@@ -6,8 +6,9 @@ package com.istudio.carmackfx.protocol;
 public enum MessageType {
 
     HEARTBEAT(0),
-    AUTH(1),
-    SERVER(2);
+    SECURITY(1),
+    INTERNAL(2),
+    PUBLIC(3);
 
     private int type;
 

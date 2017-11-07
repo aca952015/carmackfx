@@ -12,4 +12,5 @@ public class AuthResult {
 
     private String username;
     private boolean success;
+    private long token;
 }

@@ -1,7 +1,7 @@
 package com.istudio.game.server;
 
-import com.istudio.carmackfx.interfaces.AuthProvider;
-import com.istudio.game.server.auth.GameAuthProvider;
+import com.istudio.carmackfx.interfaces.SecurityService;
+import com.istudio.game.server.security.GameSecurityService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -10,9 +10,9 @@ import org.springframework.context.annotation.Bean;
 public class GameApplication {
 
 	@Bean
-	public AuthProvider authProvider() {
+	public SecurityService securityService() {
 
-		return new GameAuthProvider();
+		return new GameSecurityService();
 	}
 
 	public static void main(String[] args) {

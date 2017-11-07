@@ -9,6 +9,13 @@ public class AgentException extends Exception {
 
     private int errorCode;
 
+    public AgentException(ErrorCodes errorCodes) {
+
+        super(errorCodes.getMessage());
+
+        this.errorCode = errorCodes.getCode();
+    }
+
     public AgentException(int errorCode, String errorMessage) {
 
         super(errorMessage);

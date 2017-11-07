@@ -8,15 +8,12 @@ import com.istudio.carmackfx.protocol.MessageType;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.PooledByteBufAllocator;
 import lombok.extern.slf4j.Slf4j;
-import lombok.extern.slf4j.Slf4j;
 import org.beykery.jkcp.KcpOnUdp;
 import org.beykery.jkcp.KcpServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import java.nio.charset.Charset;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by ACA on 2017/6/7.
@@ -25,7 +22,7 @@ import java.util.Map;
 public class AgentServer extends KcpServer {
 
     private static final Charset charset = Charset.forName("utf-8");
-    private static final int offset = 14;
+    private static final int offset = 22;
 
     @Autowired
     private MessageProcessorManager processorManager;
@@ -49,35 +46,41 @@ public class AgentServer extends KcpServer {
             msgIn.setToken(bufferIn.readLong());
             msgIn.setData(bufferIn.toString(charset));
 
+            log.info("receive data: {}", JSON.toJSONString(msgIn));
+
             if(msgIn.getType() == null) {
                 throw new IllegalArgumentException("message type can not be null.");
             }
 
-            if(msgIn.getType().equals(MessageType.AUTH) && StringUtils.isEmpty(msgIn.getData())) {
-                throw new IllegalArgumentException("auth data can not be null.");
-            }
+            MessageOut msgOut = null;
 
-            if(msgIn.getType().equals(MessageType.SERVER)) {
+            if(msgIn.getType().equals(MessageType.SECURITY)) {
+
+                if(StringUtils.isEmpty(msgIn.getData())) {
+                    throw new IllegalArgumentException("security data can not be null.");
+                }
+            }
+            else if(msgIn.getType().equals(MessageType.INTERNAL)) {
 
                 if(msgIn.getToken() <= 0) {
                     throw new IllegalArgumentException("token can not be null.");
                 }
 
-                if(sessionManager.getSession(kcp) == null
-                        || sessionManager.getSession(kcp).getLeft() != msgIn.getToken()) {
+                if(sessionManager.getSession(kcp) == null) {
 
-                    throw new IllegalArgumentException("token invalid.");
+                    throw new IllegalArgumentException("session invalid.");
                 }
             }
-
-            MessageOut msgOut = null;
 
             MessageProcessor processor = processorManager.getProcessor(msgIn.getType());
             if (processor!= null) {
 
                 msgOut = processor.process(kcp, msgIn);
-                msgOut.setId(msgIn.getId());
-                msgOut.setMode((byte)0);
+
+                if(msgOut != null) {
+                    msgOut.setId(msgIn.getId());
+                    msgOut.setMode((byte) 0);
+                }
             }
 
             if(msgOut == null) {
@@ -85,6 +88,7 @@ public class AgentServer extends KcpServer {
                 msgOut = new MessageOut();
                 msgOut.setId(msgIn.getId());
                 msgOut.setMode((byte)0);
+                msgOut.setToken(msgIn.getToken());
                 msgOut.setSuccess((byte)1);
             }
 
@@ -131,10 +135,13 @@ public class AgentServer extends KcpServer {
         bufferOut.writeLong(msgOut.getId());
         bufferOut.writeByte(msgOut.getMode());
         bufferOut.writeByte(msgOut.getSuccess());
+        bufferOut.writeLong(msgOut.getToken());
 
         if(data != null) {
             bufferOut.writeBytes(data);
         }
+
+        log.info("send data: {}", JSON.toJSONString(msgOut));
 
         kcp.send(bufferOut);
     }
