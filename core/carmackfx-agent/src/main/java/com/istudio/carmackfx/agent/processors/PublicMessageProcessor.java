@@ -73,6 +73,8 @@ public class PublicMessageProcessor implements MessageProcessor {
             msgOut.setMode((byte)0);
             msgOut.setData(JSON.toJSONString(result));
 
+            log.info("service invoked: {}.{}", data.getServiceName(), data.getMethodName());
+
         } catch (Exception e) {
 
             log.error("failed to invoke service method: {}.{}", data.getServiceName(), data.getMethodName(), e);

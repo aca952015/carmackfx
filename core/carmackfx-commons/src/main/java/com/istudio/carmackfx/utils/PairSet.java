@@ -13,6 +13,12 @@ public class PairSet<L, R> extends HashSet<Pair<L, R>> {
     private final Map<R, L> leftMap = new HashMap<>();
 
     @Override
+    public boolean contains(Object key) {
+
+        return rightMap.containsKey(key) || leftMap.containsKey(key);
+    }
+
+    @Override
     public boolean add(Pair<L, R> val) {
 
         if(rightMap.containsKey(val.getLeft()) || leftMap.containsKey(val.getRight())) {

@@ -46,7 +46,7 @@ public class AgentServer extends KcpServer {
             msgIn.setToken(bufferIn.readLong());
             msgIn.setData(bufferIn.toString(charset));
 
-            log.info("receive data: {}", JSON.toJSONString(msgIn));
+            log.info("receive data: {}.{}", kcp.getRemote().toString(), JSON.toJSONString(msgIn));
 
             if(msgIn.getType() == null) {
                 throw new IllegalArgumentException("message type can not be null.");
@@ -154,6 +154,8 @@ public class AgentServer extends KcpServer {
 
     @Override
     public void handleClose(KcpOnUdp kcp) {
+
+        log.info("client close {}", kcp.getRemote().toString());
 
         sessionManager.clearSession(kcp);
     }

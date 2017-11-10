@@ -1,5 +1,6 @@
 package com.istudio.chatroom.server.services;
 
+import com.istudio.carmackfx.agent.SessionManager;
 import com.istudio.carmackfx.annotation.TContext;
 import com.istudio.carmackfx.annotation.TMethod;
 import com.istudio.carmackfx.annotation.TParam;
@@ -22,10 +23,13 @@ public class RoomService {
     @Autowired
     private ClientManager clientManager;
 
+    @Autowired
+    private SessionManager sessionManager;
+
     private final Map<Long, String> onlineUsers = new HashMap<>();
 
     @TMethod("Join")
-    public void join(@TContext MessageContext context) {
+    public boolean join(@TContext MessageContext context) {
 
         log.info("user join {}", context.getUsername());
 
@@ -41,10 +45,13 @@ public class RoomService {
 //                client.broadcast(welcome);
 //            }
 //        }
+
+        return true;
     }
 
     @TMethod("Chat")
-    public void chat(@TContext MessageContext context, @TParam("msg") String msg) {
+    public boolean chat(@TContext MessageContext context, @TParam("msg") String msg) {
 
+        return true;
     }
 }
