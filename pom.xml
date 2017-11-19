@@ -21,7 +21,6 @@
         <module>core/carmackfx-agent</module>
         <module>core/carmackfx-commons</module>
         <module>examples/chatroom-server</module>
-        <module>examples/game-server</module>
     </modules>
 
     <properties>
