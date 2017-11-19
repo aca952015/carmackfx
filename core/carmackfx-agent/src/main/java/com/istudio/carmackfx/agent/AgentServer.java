@@ -51,7 +51,16 @@ public class AgentServer extends KcpServer {
 
             MessageOut msgOut = null;
 
-            if(msgIn.getType().equals(MessageType.SECURITY)) {
+            if(msgIn.getType().equals(MessageType.HEARTBEAT)) {
+
+                log.info("heartbeat from {}", kcp.getRemote().toString());
+
+                msgOut = new MessageOut();
+                msgOut.setId(-1);
+                msgOut.setMode(MessageConsts.MSG_HEARTBEAT);
+                msgOut.setSuccess(MessageConsts.MSG_SUCCESS);
+            }
+            else if(msgIn.getType().equals(MessageType.SECURITY)) {
 
                 if(StringUtils.isEmpty(msgIn.getData())) {
                     throw new IllegalArgumentException("security data can not be null.");
