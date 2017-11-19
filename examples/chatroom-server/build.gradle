@@ -1,0 +1,17 @@
+buildscript {
+}
+
+apply plugin: "org.springframework.boot"
+
+dependencies {
+
+    compile("org.springframework.boot:spring-boot-starter")
+
+    compile("com.alibaba:fastjson:${fastjsonVersion}")
+    compile("de.ruedigermoeller:fst:${fstVersion}")
+    compile("com.esotericsoftware:kryo:${kyroVersion}")
+    compile("org.beykery:jkcp:${jkcpVersion}")
+
+    compile project(":carmackfx-commons")
+    compile project(":carmackfx-agent")
+}

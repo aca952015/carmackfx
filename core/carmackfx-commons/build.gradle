@@ -1,0 +1,10 @@
+buildscript {
+}
+
+dependencies {
+
+    compile("org.springframework.boot:spring-boot-starter:${springBootVersion}")
+    compile("com.alibaba:fastjson:${fastjsonVersion}")
+    compile("de.ruedigermoeller:fst:${fstVersion}")
+    compile("com.esotericsoftware:kryo:${kyroVersion}")
+}

@@ -1,0 +1,11 @@
+include ':carmackfx-commons'
+project(':carmackfx-commons').projectDir = new File(settingsDir, './core/carmackfx-commons')
+
+include ':carmackfx-agent'
+project(':carmackfx-agent').projectDir = new File(settingsDir, './core/carmackfx-agent')
+
+include ':carmackfx-rpc'
+project(':carmackfx-rpc').projectDir = new File(settingsDir, './core/carmackfx-rpc')
+
+include ':chatroom-server'
+project(':chatroom-server').projectDir = new File(settingsDir, './examples/chatroom-server')

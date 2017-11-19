@@ -1,0 +1,14 @@
+buildscript {
+}
+
+dependencies {
+
+    compile("org.apache.thrift:libthrift:${thriftVersion}")
+    compile("org.apache.zookeeper:zookeeper:${zookeeperVersion}")
+    compile("org.apache.curator:curator-framework:${curatorVersion}")
+    compile("org.apache.curator:curator-x-discovery:${curatorVersion}")
+    compile("org.apache.commons:commons-pool2:${poolVersion}")
+    compile("com.netflix.eureka:eureka-client:${eurekaVersion}")
+
+    compile project (":carmackfx-commons")
+}

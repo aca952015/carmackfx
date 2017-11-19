@@ -1,0 +1,74 @@
+buildscript {
+    ext {
+        projectGroup = "com.istudio"
+        projectVersion = "1.0.0"
+        junitVersion = "4.12"
+        slf4jVersion = "1.7.25"
+        springVersion = "4.3.12.RELEASE"
+        springBootVersion = "1.5.8.RELEASE"
+        springCloudVersion = "Dalston.SR3"
+        springRedisVersion = "1.8.6.RELEASE"
+        lombokVersion = "1.16.18"
+        kotlinVersion = '1.1.60'
+        fastjsonVersion = "1.2.31"
+        jkcpVersion = "1.2.4"
+        zookeeperVersion = "3.4.10"
+        curatorVersion = "2.12.0"
+        eurekaVersion = "1.7.0"
+        poolVersion = "2.4.2"
+        fstVersion = "2.50"
+        kyroVersion = "4.0.1"
+        thriftVersion = "0.10.0"
+    }
+
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+allprojects {
+    apply plugin: "java"
+    apply plugin: "eclipse"
+    apply plugin: 'maven-publish'
+
+    group "com.istudio"
+    version "1.0.0"
+
+    dependencies {
+
+        compileOnly("org.projectlombok:lombok:${lombokVersion}")
+        compile("org.slf4j:slf4j-api:${slf4jVersion}")
+
+        // test
+        testCompile("junit:junit:${junitVersion}")
+        testCompile("org.slf4j:slf4j-api:${slf4jVersion}")
+    }
+
+    repositories {
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+    }
+
+
+    task sourceJar (type:Jar) {
+        classifier = 'sources'
+        from sourceSets.main.allSource
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                groupId project.group
+                artifactId project.name
+                version project.version
+                from components.java
+                artifact(sourceJar) {
+                    classifier = 'sources'
+                }
+            }
+        }
+    }
+}

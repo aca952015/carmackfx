@@ -1,0 +1,10 @@
+buildscript {
+}
+
+dependencies {
+
+    compile("org.springframework.boot:spring-boot-starter:${springBootVersion}")
+    compile("org.beykery:jkcp:${jkcpVersion}")
+
+    compile project (":carmackfx-commons")
+}

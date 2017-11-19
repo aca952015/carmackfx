@@ -9,7 +9,6 @@ import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
 
-@Slf4j
 public class NetworkUtils {
 
     private static String localAddress;
@@ -41,8 +40,6 @@ public class NetworkUtils {
             } catch (IOException e) {
 
                 localAddress = "";
-
-                log.error("get local address failed.", e);
             }
 
         }
@@ -62,8 +59,6 @@ public class NetworkUtils {
             } catch (Exception e) {
 
                 hostName = "";
-
-                log.error("get local host name failed.", e);
             }
         }
 
