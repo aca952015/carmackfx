@@ -28,14 +28,12 @@ public class RoomService {
 
         log.info("user join {}", context.getUsername());
 
-        String welcome = context.getUsername() + "进入聊天室";
-
         sessionManager.forEach((session) -> {
 
             ClientCallback client = session.getCallback(ClientCallback.class);
             if (client != null) {
 
-                client.broadcast(welcome);
+                client.userJoin(context.getNickname());
             }
         });
 
@@ -52,7 +50,7 @@ public class RoomService {
             ClientCallback client = session.getCallback(ClientCallback.class);
             if (client != null) {
 
-                client.broadcast(msg);
+                client.broadcast(context.getNickname(), msg);
             }
         });
 

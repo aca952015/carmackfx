@@ -5,10 +5,7 @@ import com.istudio.carmackfx.agent.*;
 import com.istudio.carmackfx.annotation.TContext;
 import com.istudio.carmackfx.annotation.TParam;
 import com.istudio.carmackfx.annotation.TProcessor;
-import com.istudio.carmackfx.protocol.MessageContext;
-import com.istudio.carmackfx.protocol.MessageIn;
-import com.istudio.carmackfx.protocol.MessageOut;
-import com.istudio.carmackfx.protocol.MessageType;
+import com.istudio.carmackfx.protocol.*;
 import com.istudio.carmackfx.utils.AnnotationUtils;
 import lombok.Getter;
 import lombok.Setter;
@@ -68,8 +65,8 @@ public class PublicMessageProcessor implements MessageProcessor {
         try {
             Object result = method.invoke(serviceInstance, args);
 
-            msgOut.setSuccess((byte)0);
-            msgOut.setMode((byte)0);
+            msgOut.setSuccess(MessageConsts.MSG_SUCCESS);
+            msgOut.setMode(MessageConsts.MSG_RESULT);
             msgOut.setData(JSON.toJSONString(result));
 
             log.info("service invoked: {}.{}", data.getServiceName(), data.getMethodName());
@@ -151,6 +148,7 @@ public class PublicMessageProcessor implements MessageProcessor {
                 context.setSessionId(sessionInfo.getSessionId());
                 context.setToken(sessionInfo.getToken());
                 context.setUsername(sessionInfo.getUsername());
+                context.setNickname(sessionInfo.getNickname());
             }
 
             args[map.getContextIndex()] = context;

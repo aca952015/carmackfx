@@ -13,4 +13,5 @@ public class MessageContext {
     private String sessionId;
     private long token;
     private String username;
+    private String nickname;
 }

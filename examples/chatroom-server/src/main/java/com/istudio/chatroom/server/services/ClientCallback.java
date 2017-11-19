@@ -10,7 +10,13 @@ import com.istudio.carmackfx.annotation.TMethod;
 public interface ClientCallback {
 
     @TMethod("Broadcast")
-    void broadcast(String content);
+    void broadcast(String from, String content);
+
+    @TMethod("UserJoin")
+    void userJoin(String username);
+
+    @TMethod("UserLeave")
+    void userLeave(String username);
 
     @TMethod("Whisper")
     void whisper(String from, String content);
