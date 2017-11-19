@@ -1,10 +1,7 @@
 package com.istudio.carmackfx.agent;
 
 import com.alibaba.fastjson.JSON;
-import com.istudio.carmackfx.protocol.MessageErrorContent;
-import com.istudio.carmackfx.protocol.MessageIn;
-import com.istudio.carmackfx.protocol.MessageOut;
-import com.istudio.carmackfx.protocol.MessageType;
+import com.istudio.carmackfx.protocol.*;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.PooledByteBufAllocator;
 import lombok.extern.slf4j.Slf4j;
@@ -66,7 +63,7 @@ public class AgentServer extends KcpServer {
                     throw new IllegalArgumentException("token can not be null.");
                 }
 
-                if(sessionManager.getSession(kcp) == null) {
+                if(sessionManager.contains(kcp) == false) {
 
                     throw new IllegalArgumentException("session invalid.");
                 }
@@ -79,7 +76,7 @@ public class AgentServer extends KcpServer {
 
                 if(msgOut != null) {
                     msgOut.setId(msgIn.getId());
-                    msgOut.setMode((byte) 0);
+                    msgOut.setMode(MessageConsts.MSG_RESULT);
                 }
             }
 
@@ -87,9 +84,9 @@ public class AgentServer extends KcpServer {
 
                 msgOut = new MessageOut();
                 msgOut.setId(msgIn.getId());
-                msgOut.setMode((byte)0);
+                msgOut.setMode(MessageConsts.MSG_RESULT);
                 msgOut.setToken(msgIn.getToken());
-                msgOut.setSuccess((byte)1);
+                msgOut.setSuccess(MessageConsts.MSG_SUCCESS);
             }
 
             send(kcp, msgOut);
@@ -118,15 +115,15 @@ public class AgentServer extends KcpServer {
 
             MessageOut msgOut = new MessageOut();
             msgOut.setId(-1);
-            msgOut.setMode((byte)2);
-            msgOut.setSuccess((byte)1);
+            msgOut.setMode(MessageConsts.MSG_RESULT);
+            msgOut.setSuccess(MessageConsts.MSG_SERVERERROR);
             msgOut.setData(JSON.toJSONString(errorContent));
 
             send(kcp, msgOut);
         }
     }
 
-    private void send(KcpOnUdp kcp, MessageOut msgOut) {
+    public void send(KcpOnUdp kcp, MessageOut msgOut) {
 
         byte[] data = msgOut.getData() == null ? null : msgOut.getData().getBytes(charset);
 

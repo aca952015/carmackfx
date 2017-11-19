@@ -5,12 +5,11 @@ import com.istudio.carmackfx.agent.*;
 import com.istudio.carmackfx.annotation.TContext;
 import com.istudio.carmackfx.annotation.TParam;
 import com.istudio.carmackfx.annotation.TProcessor;
-import com.istudio.carmackfx.interfaces.AuthResult;
 import com.istudio.carmackfx.protocol.MessageContext;
 import com.istudio.carmackfx.protocol.MessageIn;
 import com.istudio.carmackfx.protocol.MessageOut;
 import com.istudio.carmackfx.protocol.MessageType;
-import com.istudio.carmackfx.utils.ClassUtils;
+import com.istudio.carmackfx.utils.AnnotationUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -59,12 +58,12 @@ public class PublicMessageProcessor implements MessageProcessor {
             throw new AgentException(ErrorCodes.SERVICE_NOT_FOUND);
         }
 
-        Method method = ClassUtils.getMethod(serviceInstance.getClass(), data.getMethodName());
+        Method method = AnnotationUtils.getMethod(serviceInstance.getClass(), data.getMethodName());
         if(method == null) {
             throw new AgentException(ErrorCodes.METHOD_NOT_FOUND);
         }
 
-        Object[] args = buildArgs(method, sessionManager.getValue(client), data.arguments);
+        Object[] args = buildArgs(method, sessionManager.getSession(client), data.arguments);
 
         try {
             Object result = method.invoke(serviceInstance, args);

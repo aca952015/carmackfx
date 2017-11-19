@@ -66,12 +66,15 @@ public class SecurityMessageProcessor implements MessageProcessor {
 
             if(result.isSuccess()) {
 
-                SessionInfo sessionInfo = new SessionInfo();
-                sessionInfo.setSessionId(UUID.randomUUID().toString());
-                sessionInfo.setToken(result.getToken());
-                sessionInfo.setUsername(result.getUsername());
+                SessionInfo sessionInfo = new SessionInfo(
+                        result.getUsername(),
+                        result.getToken(),
+                        result.getUsername(),
+                        result.getNickname(),
+                        client
+                );
 
-                sessionManager.createSession(client, sessionInfo);
+                sessionManager.createSession(result.getUsername(), sessionInfo);
             }
 
             return msgOut;

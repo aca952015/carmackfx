@@ -2,6 +2,7 @@ package com.istudio.carmackfx.agent;
 
 import com.istudio.carmackfx.annotation.TProcessor;
 import com.istudio.carmackfx.protocol.MessageType;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import java.util.Map;
 /**
  * Created by ACA on 2017/6/8.
  */
+@Slf4j
 public class MessageProcessorManager {
 
     private final Map<MessageType, MessageProcessor> processors;
@@ -35,6 +37,8 @@ public class MessageProcessorManager {
 
             TProcessor ann = processor.getClass().getAnnotation(TProcessor.class);
             if(ann != null) {
+
+                log.info("Processor loaded: {}", ann.type().name());
 
                 processors.put(ann.type(), processor);
             }

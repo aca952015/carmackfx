@@ -5,5 +5,5 @@ package com.istudio.carmackfx.callback;
  */
 public interface ClientManager {
 
-    <T> T getCallback(Long token, Class<T> clazz);
+    <T> T getCallback(String sessionId, Class<T> clazz);
 }

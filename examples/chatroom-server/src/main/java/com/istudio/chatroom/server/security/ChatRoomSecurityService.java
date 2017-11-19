@@ -15,6 +15,7 @@ public class ChatRoomSecurityService implements SecurityService<ChatRoomAuthIn> 
 
         AuthResult result = new AuthResult();
         result.setUsername(authIn.getUsername());
+        result.setNickname(authIn.getUsername());
         result.setSuccess(true);
         result.setToken(authIn.getUsername().hashCode());
 

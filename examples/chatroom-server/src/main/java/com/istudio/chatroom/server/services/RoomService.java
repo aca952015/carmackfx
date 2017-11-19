@@ -21,36 +21,46 @@ import java.util.Map;
 public class RoomService {
 
     @Autowired
-    private ClientManager clientManager;
-
-    @Autowired
     private SessionManager sessionManager;
-
-    private final Map<Long, String> onlineUsers = new HashMap<>();
 
     @TMethod("Join")
     public boolean join(@TContext MessageContext context) {
 
         log.info("user join {}", context.getUsername());
 
-        onlineUsers.put(context.getToken(), context.getUsername());
-
         String welcome = context.getUsername() + "进入聊天室";
 
-//        for (Long token : onlineUsers.keySet()) {
-//
-//            ClientCallback client = clientManager.getCallback(token, ClientCallback.class);
-//            if(client != null) {
-//
-//                client.broadcast(welcome);
-//            }
-//        }
+        sessionManager.forEach((session) -> {
+
+            ClientCallback client = session.getCallback(ClientCallback.class);
+            if (client != null) {
+
+                client.broadcast(welcome);
+            }
+        });
 
         return true;
     }
 
     @TMethod("Chat")
     public boolean chat(@TContext MessageContext context, @TParam("msg") String msg) {
+
+        log.info("user chat {}", context.getUsername());
+
+        sessionManager.forEach((session) -> {
+
+            ClientCallback client = session.getCallback(ClientCallback.class);
+            if (client != null) {
+
+                client.broadcast(msg);
+            }
+        });
+
+        return true;
+    }
+
+    @TMethod("Whisper")
+    public boolean whisper(@TContext MessageContext context, @TParam("target") String target, @TParam("msg") String msg) {
 
         return true;
     }

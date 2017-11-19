@@ -1,9 +1,11 @@
 package com.istudio.carmackfx.agent;
 
+import com.istudio.carmackfx.agent.impls.DefaultCallbackService;
 import com.istudio.carmackfx.agent.impls.DefaultClientManager;
 import com.istudio.carmackfx.agent.processors.InternalMessageProcessor;
 import com.istudio.carmackfx.agent.processors.SecurityMessageProcessor;
 import com.istudio.carmackfx.agent.processors.PublicMessageProcessor;
+import com.istudio.carmackfx.callback.CallbackService;
 import com.istudio.carmackfx.callback.ClientManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -65,6 +67,11 @@ public class AgentAutoConfiguration {
     public ClientManager clientManager() {
 
         return new DefaultClientManager();
+    }
+
+    @Bean
+    public CallbackService callbackService() {
+        return new DefaultCallbackService();
     }
 
     @Bean
