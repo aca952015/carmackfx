@@ -23,3 +23,11 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+### Gradle ###
+out/
+.gradle/
+build/
+gradle
+gradlew
+gradlew.bat
