@@ -1,0 +1,14 @@
+buildscript {
+}
+
+apply plugin: "org.springframework.boot"
+
+dependencies {
+
+	compile("org.springframework.boot:spring-boot-starter")
+
+	compile project(":carmackfx-commons")
+	compile project(":carmackfx-agent")
+
+	compile project(":tkg-server-account")
+}
