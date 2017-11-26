@@ -11,8 +11,8 @@ project(':carmackfx-rpc').projectDir = new File(settingsDir, './core/carmackfx-r
 include ':chatroom-server'
 project(':chatroom-server').projectDir = new File(settingsDir, './examples/chatroom-server')
 
-include ':tkg-server-all'
-project(':tkg-server-all').projectDir = new File(settingsDir, './examples/tkg-server-all')
+//include ':tkg-server-all'
+//project(':tkg-server-all').projectDir = new File(settingsDir, './examples/tkg-server-all')
 
 include ':tkg-server-account'
 project(':tkg-server-account').projectDir = new File(settingsDir, './examples/tkg-server-account')

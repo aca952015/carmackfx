@@ -102,24 +102,33 @@ public class AgentServer extends KcpServer {
 
         } catch(Exception e) {
 
-            log.error("Process message failed.", e);
-
             MessageErrorContent errorContent = new MessageErrorContent();
 
-            if(e instanceof IllegalArgumentException) {
+            if(e instanceof MessageException) {
 
-                errorContent.setErrorCode(ErrorCodes.ILLEGAL_ARGUMENT.getCode());
-                errorContent.setErrorMessage(ErrorCodes.ILLEGAL_ARGUMENT.getMessage() + ": " + e.getMessage());
-            } if(e instanceof AgentException) {
+                MessageException ex = (MessageException)e;
 
-                AgentException ex = (AgentException)e;
-
-                errorContent.setErrorCode(ex.getErrorCode());
+                errorContent.setErrorCode(ErrorCodes.BUSINESS_ERROR.getCode());
                 errorContent.setErrorMessage(ex.getMessage());
             } else {
 
-                errorContent.setErrorCode(ErrorCodes.SERVER_ERROR.getCode());
-                errorContent.setErrorMessage(ErrorCodes.SERVER_ERROR.getMessage());
+                log.error("Process message failed.", e);
+
+                if (e instanceof IllegalArgumentException) {
+
+                    errorContent.setErrorCode(ErrorCodes.ILLEGAL_ARGUMENT.getCode());
+                    errorContent.setErrorMessage(ErrorCodes.ILLEGAL_ARGUMENT.getMessage() + ": " + e.getMessage());
+                } else if (e instanceof AgentException) {
+
+                    AgentException ex = (AgentException) e;
+
+                    errorContent.setErrorCode(ex.getErrorCode());
+                    errorContent.setErrorMessage(ex.getMessage());
+                } else {
+
+                    errorContent.setErrorCode(ErrorCodes.SERVER_ERROR.getCode());
+                    errorContent.setErrorMessage(ErrorCodes.SERVER_ERROR.getMessage());
+                }
             }
 
             MessageOut msgOut = new MessageOut();

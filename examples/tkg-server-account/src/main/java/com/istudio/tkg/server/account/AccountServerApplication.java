@@ -1,12 +1,12 @@
-package com.istudio.tkg.server;
+package com.istudio.tkg.server.account;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ServerAllApplication {
+public class AccountServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ServerAllApplication.class, args);
+		SpringApplication.run(AccountServerApplication.class, args);
 	}
 }

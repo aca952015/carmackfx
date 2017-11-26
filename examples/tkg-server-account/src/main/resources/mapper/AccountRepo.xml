@@ -1,0 +1,65 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.istudio.tkg.server.account.repo.AccountRepo" >
+    <resultMap id="BaseResultMap" type="Account" >
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="phone" property="phone" jdbcType="VARCHAR" />
+        <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="is_enabled" property="isEnabled" jdbcType="BIT" />
+        <result column="create_time" property="createTime" jdbcType="DATE"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+        <result column="update_time" property="createTime" jdbcType="DATE"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, email, phone, nickname, password, is_enabled, create_time, create_user, update_time, update_user
+    </sql>
+
+    <!--<select id="getAll" resultMap="BaseResultMap"  >-->
+        <!--SELECT-->
+        <!--<include refid="Base_Column_List" />-->
+        <!--FROM users-->
+    <!--</select>-->
+
+    <!--<select id="getOne" parameterType="java.lang.Long" resultMap="BaseResultMap" >-->
+        <!--SELECT-->
+        <!--<include refid="Base_Column_List" />-->
+        <!--FROM users-->
+        <!--WHERE id = #{id}-->
+    <!--</select>-->
+
+    <select id="exists" parameterType="string" resultType="int">
+        select count(email)
+        from user
+        where email = #{email}
+    </select>
+
+    <insert id="create" parameterType="Account" >
+        insert into
+        user
+        (email, password, is_enabled, create_time)
+        values
+        (#{email}, #{password}, 1, now())
+    </insert>
+
+    <!--<update id="update" parameterType="com.neo.entity.UserEntity" >-->
+        <!--UPDATE-->
+        <!--users-->
+        <!--SET-->
+        <!--<if test="userName != null">userName = #{userName},</if>-->
+        <!--<if test="passWord != null">passWord = #{passWord},</if>-->
+        <!--nick_name = #{nickName}-->
+        <!--WHERE-->
+        <!--id = #{id}-->
+    <!--</update>-->
+
+    <!--<delete id="delete" parameterType="java.lang.Long" >-->
+        <!--DELETE FROM-->
+        <!--users-->
+        <!--WHERE-->
+        <!--id =#{id}-->
+    <!--</delete>-->
+</mapper>

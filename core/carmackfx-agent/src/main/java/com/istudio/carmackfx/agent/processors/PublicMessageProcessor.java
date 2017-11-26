@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -36,7 +37,7 @@ public class PublicMessageProcessor implements MessageProcessor {
     private final Map<Method, ArgumentMap> argumentsMap = new HashMap<>();
 
     @Override
-    public MessageOut process(KcpOnUdp client, MessageIn msgIn) throws AgentException {
+    public MessageOut process(KcpOnUdp client, MessageIn msgIn) throws Exception {
 
         if(msgIn.getData() == null) {
             throw new IllegalArgumentException("msg data can not be null.");
@@ -65,13 +66,28 @@ public class PublicMessageProcessor implements MessageProcessor {
         try {
             Object result = method.invoke(serviceInstance, args);
 
+            msgOut.setId(msgIn.getId());
             msgOut.setSuccess(MessageConsts.MSG_SUCCESS);
             msgOut.setMode(MessageConsts.MSG_RESULT);
             msgOut.setData(JSON.toJSONString(result));
 
             log.info("service invoked: {}.{}", data.getServiceName(), data.getMethodName());
 
-        } catch (Exception e) {
+        } catch (InvocationTargetException e) {
+
+            if(e.getTargetException() instanceof MessageException) {
+
+                MessageErrorContent content = new MessageErrorContent();
+                content.setErrorCode(ErrorCodes.BUSINESS_ERROR.getCode());
+                content.setErrorMessage(e.getTargetException().getMessage());
+
+                msgOut.setId(msgIn.getId());
+                msgOut.setSuccess(MessageConsts.MSG_DATAINVALID);
+                msgOut.setMode(MessageConsts.MSG_RESULT);
+                msgOut.setData(JSON.toJSONString(content));
+
+                return msgOut;
+            }
 
             log.error("failed to invoke service method: {}.{}", data.getServiceName(), data.getMethodName(), e);
 
