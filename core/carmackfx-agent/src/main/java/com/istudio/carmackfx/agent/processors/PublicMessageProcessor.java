@@ -100,7 +100,7 @@ public class PublicMessageProcessor implements MessageProcessor {
     private Object[] buildArgs(Method method, SessionInfo sessionInfo, Map<String, RpcMessageArgument> arguments) {
 
         // init argument map cache
-        ArgumentMap map = null;
+        ArgumentMap map;
         if(argumentsMap.containsKey(method)) {
             map = argumentsMap.get(method);
         } else {
@@ -150,6 +150,7 @@ public class PublicMessageProcessor implements MessageProcessor {
                     String value = argument.getArgumentValue();
 
                     if(!StringUtils.isEmpty(value)) {
+
                         args[index] = JSON.parseObject(value, map.getMethodArguments()[index]);
                     }
                 }
@@ -175,7 +176,7 @@ public class PublicMessageProcessor implements MessageProcessor {
 
     @Getter
     @Setter
-    public static class RpcMessageData {
+    private static class RpcMessageData {
 
         private String serviceName;
         private String methodName;
@@ -184,7 +185,7 @@ public class PublicMessageProcessor implements MessageProcessor {
 
     @Getter
     @Setter
-    public static class RpcMessageArgument {
+    private static class RpcMessageArgument {
 
         private String argumentName;
         private String argumentValue;
@@ -193,10 +194,10 @@ public class PublicMessageProcessor implements MessageProcessor {
 
     @Getter
     @Setter
-    public static class ArgumentMap {
+    private static class ArgumentMap {
 
         private Map<Integer, String> argumentsIndex;
-        private Class[] methodArguments;
+        private Class<?>[] methodArguments;
         private Integer contextIndex;
     }
 }

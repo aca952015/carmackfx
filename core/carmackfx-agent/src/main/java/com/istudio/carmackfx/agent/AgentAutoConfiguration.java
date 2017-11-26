@@ -19,8 +19,12 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(AgentProperties.class)
 public class AgentAutoConfiguration {
 
+    private final AgentProperties properties;
+
     @Autowired
-    private AgentProperties properties;
+    public AgentAutoConfiguration(AgentProperties properties) {
+        this.properties = properties;
+    }
 
     @Bean
     public AgentServer agentServer(){
@@ -41,31 +45,27 @@ public class AgentAutoConfiguration {
     }
 
     @Bean
-    public MessageProcessor publicMessageProcessor() {
+    public PublicMessageProcessor publicMessageProcessor() {
         return new PublicMessageProcessor();
     }
 
     @Bean
-    public MessageProcessor internalMessageProcessor() {
+    public InternalMessageProcessor internalMessageProcessor() {
         return new InternalMessageProcessor();
     }
 
     @Bean
     public MessageProcessorManager messageProcessorManager() {
-
-        MessageProcessorManager manager = new MessageProcessorManager();
-        return manager;
+        return new MessageProcessorManager();
     }
 
     @Bean
     public SessionManager sessionManager() {
-
         return new SessionManager();
     }
 
     @Bean
     public ClientManager clientManager() {
-
         return new DefaultClientManager();
     }
 
