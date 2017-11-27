@@ -19,12 +19,8 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(AgentProperties.class)
 public class AgentAutoConfiguration {
 
-    private final AgentProperties properties;
-
     @Autowired
-    public AgentAutoConfiguration(AgentProperties properties) {
-        this.properties = properties;
-    }
+    private AgentProperties properties;
 
     @Bean
     public AgentServer agentServer(){

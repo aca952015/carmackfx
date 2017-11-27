@@ -12,6 +12,6 @@ public class InternalMessageProcessor extends PublicMessageProcessor {
     @Override
     public MessageOut process(KcpOnUdp client, MessageIn msgIn) throws Exception {
 
-        return super.process(client, msgIn);
+        return super.process(client, msgIn, false);
     }
 }

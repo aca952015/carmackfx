@@ -1,7 +1,7 @@
 package com.istudio.chatroom.server.security;
 
 import com.istudio.carmackfx.interfaces.SecurityService;
-import com.istudio.carmackfx.interfaces.AuthResult;
+import com.istudio.carmackfx.domain.AuthResult;
 import lombok.extern.slf4j.Slf4j;
 
 /**

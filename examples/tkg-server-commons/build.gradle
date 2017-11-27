@@ -6,11 +6,9 @@ apply plugin: "org.springframework.boot"
 dependencies {
 
     compile("org.springframework.boot:spring-boot-starter")
-    compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}")
+    compile("org.springframework.boot:spring-boot-starter-data-redis")
     compile('mysql:mysql-connector-java')
 
     compile project(":carmackfx-commons")
     compile project(":carmackfx-agent")
-
-    compile project(":tkg-server-commons")
 }

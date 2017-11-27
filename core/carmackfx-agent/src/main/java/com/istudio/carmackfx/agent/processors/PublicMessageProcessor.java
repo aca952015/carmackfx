@@ -5,6 +5,8 @@ import com.istudio.carmackfx.agent.*;
 import com.istudio.carmackfx.annotation.TContext;
 import com.istudio.carmackfx.annotation.TParam;
 import com.istudio.carmackfx.annotation.TProcessor;
+import com.istudio.carmackfx.annotation.TPublic;
+import com.istudio.carmackfx.interfaces.TokenService;
 import com.istudio.carmackfx.protocol.*;
 import com.istudio.carmackfx.utils.AnnotationUtils;
 import lombok.Getter;
@@ -34,10 +36,18 @@ public class PublicMessageProcessor implements MessageProcessor {
     @Autowired
     private SessionManager sessionManager;
 
+    @Autowired
+    private TokenService tokenService;
+
     private final Map<Method, ArgumentMap> argumentsMap = new HashMap<>();
 
     @Override
     public MessageOut process(KcpOnUdp client, MessageIn msgIn) throws Exception {
+
+        return process(client, msgIn, true);
+    }
+
+    protected MessageOut process(KcpOnUdp client, MessageIn msgIn, boolean isPublic) throws Exception {
 
         if(msgIn.getData() == null) {
             throw new IllegalArgumentException("msg data can not be null.");
@@ -54,6 +64,16 @@ public class PublicMessageProcessor implements MessageProcessor {
         Object serviceInstance = holder.getBean(data.getServiceName());
         if(serviceInstance == null) {
             throw new AgentException(ErrorCodes.SERVICE_NOT_FOUND);
+        }
+
+        if(isPublic == false) {
+
+            TPublic anno = serviceInstance.getClass().getAnnotation(TPublic.class);
+            if(anno == null) {
+                throw new AgentException(ErrorCodes.SERVICE_NOT_PUBLIC);
+            }
+        } else if(tokenService.verify(msgIn.getToken())) {
+            throw new AgentException(ErrorCodes.TOKEN_INVALID);
         }
 
         Method method = AnnotationUtils.getMethod(serviceInstance.getClass(), data.getMethodName());

@@ -1,18 +1,17 @@
-package com.istudio.tkg.server.account.service;
+package com.istudio.tkg.server.service;
 
-import com.istudio.carmackfx.annotation.TContext;
-import com.istudio.carmackfx.annotation.TMethod;
-import com.istudio.carmackfx.annotation.TParam;
+import com.istudio.carmackfx.annotation.*;
 import com.istudio.carmackfx.protocol.MessageContext;
 import com.istudio.carmackfx.protocol.MessageException;
-import com.istudio.tkg.server.account.model.Account;
-import com.istudio.tkg.server.account.repo.AccountRepo;
+import com.istudio.tkg.server.model.domain.Account;
+import com.istudio.tkg.server.repo.AccountRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component("IAccountService")
+@TPublic
 public class AccountService {
 
     @Autowired

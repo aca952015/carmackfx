@@ -1,4 +1,4 @@
-package com.istudio.tkg.server.account.model;
+package com.istudio.tkg.server.model.domain;
 
 import lombok.Data;
 
