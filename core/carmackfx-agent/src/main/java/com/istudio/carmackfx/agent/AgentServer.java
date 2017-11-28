@@ -43,17 +43,18 @@ public class AgentServer extends KcpServer {
             msgIn.setToken(bufferIn.readLong());
             msgIn.setData(bufferIn.toString(charset));
 
-            log.info("receive data: {}.{}", kcp.getRemote().toString(), JSON.toJSONString(msgIn));
-
             if(msgIn.getType() == null) {
                 throw new IllegalArgumentException("message type can not be null.");
+            }
+
+            if(msgIn.getType() != MessageType.HEARTBEAT) {
+
+                log.info("receive data: {}.{}", kcp.getRemote().toString(), JSON.toJSONString(msgIn));
             }
 
             MessageOut msgOut = null;
 
             if(msgIn.getType().equals(MessageType.HEARTBEAT)) {
-
-                log.info("heartbeat from {}", kcp.getRemote().toString());
 
                 msgOut = new MessageOut();
                 msgOut.setId(-1);
@@ -100,6 +101,11 @@ public class AgentServer extends KcpServer {
 
             send(kcp, msgOut);
 
+            if(msgIn.getType() != MessageType.HEARTBEAT) {
+
+                log.info("send data: {}", JSON.toJSONString(msgOut));
+            }
+
         } catch(Exception e) {
 
             MessageErrorContent errorContent = new MessageErrorContent();
@@ -111,8 +117,6 @@ public class AgentServer extends KcpServer {
                 errorContent.setErrorCode(ErrorCodes.BUSINESS_ERROR.getCode());
                 errorContent.setErrorMessage(ex.getMessage());
             } else {
-
-                log.error("Process message failed.", e);
 
                 if (e instanceof IllegalArgumentException) {
 
@@ -155,8 +159,6 @@ public class AgentServer extends KcpServer {
         if(data != null) {
             bufferOut.writeBytes(data);
         }
-
-        log.info("send data: {}", JSON.toJSONString(msgOut));
 
         kcp.send(bufferOut);
     }

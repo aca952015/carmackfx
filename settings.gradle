@@ -19,3 +19,6 @@ project(':tkg-server-commons').projectDir = new File(settingsDir, './examples/tk
 
 include ':tkg-server-account'
 project(':tkg-server-account').projectDir = new File(settingsDir, './examples/tkg-server-account')
+
+include ':tkg-server-dispatch'
+project(':tkg-server-dispatch').projectDir = new File(settingsDir, './examples/tkg-server-dispatch')

@@ -6,16 +6,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 
 @SpringBootApplication
 @Slf4j
 public class ChatRoomApplication {
-
-	@Bean
-	public SecurityService securityService() {
-
-		return new ChatRoomSecurityService();
-	}
 
 	public static void main(String[] args) {
 

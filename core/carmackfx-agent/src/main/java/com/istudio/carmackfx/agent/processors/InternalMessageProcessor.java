@@ -7,7 +7,7 @@ import com.istudio.carmackfx.protocol.MessageType;
 import org.beykery.jkcp.KcpOnUdp;
 
 @TProcessor(type = MessageType.INTERNAL)
-public class InternalMessageProcessor extends PublicMessageProcessor {
+public class InternalMessageProcessor extends ServiceMessageProcessor {
 
     @Override
     public MessageOut process(KcpOnUdp client, MessageIn msgIn) throws Exception {

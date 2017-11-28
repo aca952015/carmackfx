@@ -9,5 +9,6 @@ import org.beykery.jkcp.KcpOnUdp;
  */
 public interface MessageProcessor {
 
+    void init();
     MessageOut process(KcpOnUdp client, MessageIn msgIn) throws Exception;
 }

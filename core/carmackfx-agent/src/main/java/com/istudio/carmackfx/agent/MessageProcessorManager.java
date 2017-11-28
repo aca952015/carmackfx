@@ -40,6 +40,8 @@ public class MessageProcessorManager {
 
                 log.info("Processor loaded: {}", ann.type().name());
 
+                processor.init();
+
                 processors.put(ann.type(), processor);
             }
         }

@@ -48,6 +48,7 @@
     <select id="find" parameterType="string" resultType="Account">
         select
         <include refid="Base_Column_List" />
+        from user
         where email = #{email}
     </select>
 

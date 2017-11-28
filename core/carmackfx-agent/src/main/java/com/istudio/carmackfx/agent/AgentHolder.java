@@ -1,5 +1,6 @@
 package com.istudio.carmackfx.agent;
 
+import com.istudio.carmackfx.agent.processors.SecurityMessageProcessor;
 import com.istudio.carmackfx.config.BaseHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +25,12 @@ public class AgentHolder extends BaseHolder {
     @Override
     protected void doInit() {
 
-        agentServer.start();
-
         log.info(String.format("Start Agent Server at %d.", properties.getPort()));
 
         Map<String, MessageProcessor> results = getContext().getBeansOfType(MessageProcessor.class);
 
         messageProcessorManager.register(results.values());
+
+        agentServer.start();
     }
 }

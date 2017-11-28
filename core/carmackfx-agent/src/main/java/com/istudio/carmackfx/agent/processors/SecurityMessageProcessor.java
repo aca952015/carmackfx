@@ -11,6 +11,7 @@ import com.istudio.carmackfx.domain.AuthResult;
 import com.istudio.carmackfx.domain.User;
 import com.istudio.carmackfx.interfaces.SecurityService;
 import com.istudio.carmackfx.interfaces.TokenService;
+import com.istudio.carmackfx.protocol.MessageConsts;
 import com.istudio.carmackfx.protocol.MessageIn;
 import com.istudio.carmackfx.protocol.MessageOut;
 import com.istudio.carmackfx.protocol.MessageType;
@@ -41,7 +42,7 @@ public class SecurityMessageProcessor implements MessageProcessor {
     private Class<?> authParameterType;
 
     @Override
-    public MessageOut process(KcpOnUdp client, MessageIn msgIn) {
+    public void init() {
 
         if (securityService == null) {
 
@@ -58,6 +59,10 @@ public class SecurityMessageProcessor implements MessageProcessor {
 
             tokenService = new DefaultTokenService();
         }
+    }
+
+    @Override
+    public MessageOut process(KcpOnUdp client, MessageIn msgIn) {
 
         try {
 
@@ -71,7 +76,8 @@ public class SecurityMessageProcessor implements MessageProcessor {
 
             MessageOut msgOut = new MessageOut();
             msgOut.setId(msgIn.getId());
-            msgOut.setSuccess((byte) (result.isSuccess() ? 0 : 1));
+            msgOut.setSuccess(MessageConsts.MSG_SUCCESS);
+            msgOut.setMode(MessageConsts.MSG_RESULT);
             msgOut.setData(JSON.toJSONString(result));
 
             if(result.getUser() == null
