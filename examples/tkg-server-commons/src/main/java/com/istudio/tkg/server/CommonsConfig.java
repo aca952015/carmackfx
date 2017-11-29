@@ -1,6 +1,7 @@
 package com.istudio.tkg.server;
 
 import com.istudio.carmackfx.domain.User;
+import com.istudio.tkg.server.utils.RedisObjectSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -14,6 +15,7 @@ public class CommonsConfig {
 
         RedisTemplate redisTemplate = new RedisTemplate<Long, User>();
         redisTemplate.setConnectionFactory(factory);
+        redisTemplate.setValueSerializer(new RedisObjectSerializer());
 
         return redisTemplate;
     }

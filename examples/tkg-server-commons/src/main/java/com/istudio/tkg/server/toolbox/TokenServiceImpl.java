@@ -21,7 +21,7 @@ public class TokenServiceImpl implements TokenService {
     @Override
     public long create(User user) {
 
-        if(user != null && StringUtils.isEmpty(user.getUsername())) {
+        if(user != null && !StringUtils.isEmpty(user.getUsername())) {
 
             long token = user.getUsername().hashCode();
 
