@@ -17,10 +17,10 @@ public class SessionManager {
     @Autowired
     private ClientManager clientManager;
 
-    private final Map<String, SessionInfo> sessions = new HashMap<>();
-    private final Map<String, String> socketMap = new HashMap<>();
+    private final Map<Long, SessionInfo> sessions = new HashMap<>();
+    private final Map<String, Long> socketMap = new HashMap<>();
 
-    public void createSession(String sessionId, SessionInfo sessionInfo) {
+    public void createSession(Long sessionId, SessionInfo sessionInfo) {
 
         if(sessions.containsKey(sessionId)) {
 
@@ -31,7 +31,7 @@ public class SessionManager {
         sessions.put(sessionId, sessionInfo);
     }
 
-    public SessionInfo getSession(String sessionId) {
+    public SessionInfo getSession(Long sessionId) {
 
         return sessions.get(sessionId);
     }
@@ -46,12 +46,12 @@ public class SessionManager {
         return null;
     }
 
-    public void clearSession(String sessionId) {
+    public void clearSession(Long sessionId) {
 
         SessionInfo sessionInfo = sessions.get(sessionId);
         if(sessionInfo != null) {
 
-            Pair<String, SessionInfo> pair = new Pair<>(sessionId, sessionInfo);
+            Pair<Long, SessionInfo> pair = new Pair<>(sessionId, sessionInfo);
 
             sessions.remove(pair);
             socketMap.remove(sessionInfo.getClient().getRemote().toString());
@@ -63,14 +63,14 @@ public class SessionManager {
         String socketKey = client.getRemote().toString();
         if(socketMap.containsKey(socketKey)) {
 
-            String sessionId = socketMap.get(socketKey);
+            Long sessionId = socketMap.get(socketKey);
 
             sessions.remove(sessionId);
             socketMap.remove(socketKey);
         }
     }
 
-    public boolean contains(String sessionId) {
+    public boolean contains(Long sessionId) {
         
         return sessions.containsKey(sessionId);
     }

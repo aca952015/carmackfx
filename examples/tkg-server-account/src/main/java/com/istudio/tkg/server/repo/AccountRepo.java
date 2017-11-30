@@ -1,14 +1,12 @@
 package com.istudio.tkg.server.repo;
 
 import com.istudio.tkg.server.model.domain.Account;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@Mapper
-public interface AccountRepo {
+public interface AccountRepo extends MongoRepository<Account, String> {
 
-    int exists(String email);
-    int create(Account account);
-    Account find(String email);
+    Account findByEmail(String email);
+    boolean existsByEmail(String email);
 }

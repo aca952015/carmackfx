@@ -22,7 +22,7 @@ public class DefaultClientManager implements ClientManager {
     private CallbackService callbackService;
 
     @Override
-    public <T> T getCallback(String sessionId, Class<T> clazz) {
+    public <T> T getCallback(Long sessionId, Class<T> clazz) {
 
         ClientProxy proxy = new ClientProxy(callbackService, sessionId, clazz);
 
@@ -33,7 +33,7 @@ public class DefaultClientManager implements ClientManager {
     private class ClientProxy implements InvocationHandler {
 
         private CallbackService callbackService;
-        private String sessionId;
+        private Long sessionId;
         private Class serviceType;
 
         @Override

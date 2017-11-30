@@ -1,7 +1,7 @@
 package com.istudio.carmackfx.interfaces;
 
 import com.istudio.carmackfx.annotation.TService;
-import com.istudio.carmackfx.domain.AuthResult;
+import com.istudio.carmackfx.model.domain.User;
 
 /**
  * Created by ACA on 2017-6-7.
@@ -9,5 +9,5 @@ import com.istudio.carmackfx.domain.AuthResult;
 @TService
 public interface SecurityService<T> {
 
-    AuthResult auth(T request);
+    User auth(T request);
 }

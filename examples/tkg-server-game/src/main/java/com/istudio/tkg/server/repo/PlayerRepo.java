@@ -1,10 +1,11 @@
 package com.istudio.tkg.server.repo;
 
-import com.istudio.tkg.server.model.domain.Server;
+import com.istudio.tkg.server.model.domain.Player;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ServerRepo extends MongoRepository<Server, String> {
+public interface PlayerRepo extends MongoRepository<Player, String> {
 
+    Player findByOwner(String owner);
 }

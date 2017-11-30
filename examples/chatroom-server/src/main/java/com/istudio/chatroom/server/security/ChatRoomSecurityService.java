@@ -1,8 +1,7 @@
 package com.istudio.chatroom.server.security;
 
-import com.istudio.carmackfx.domain.User;
+import com.istudio.carmackfx.model.domain.User;
 import com.istudio.carmackfx.interfaces.SecurityService;
-import com.istudio.carmackfx.domain.AuthResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -14,18 +13,14 @@ import org.springframework.stereotype.Component;
 public class ChatRoomSecurityService implements SecurityService<ChatRoomAuthIn> {
 
     @Override
-    public AuthResult auth(ChatRoomAuthIn authIn) {
+    public User auth(ChatRoomAuthIn authIn) {
 
         User user = new User();
-        user.setUsername(authIn.getUsername());
+        user.setId(authIn.getUsername());
         user.setNickname(authIn.getUsername());
-
-        AuthResult result = new AuthResult();
-        result.setSuccess(true);
-        result.setUser(user);
 
         log.info("user login {}", authIn.getUsername());
 
-        return result;
+        return user;
     }
 }

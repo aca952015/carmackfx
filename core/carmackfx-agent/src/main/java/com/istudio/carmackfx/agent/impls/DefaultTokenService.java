@@ -1,6 +1,6 @@
 package com.istudio.carmackfx.agent.impls;
 
-import com.istudio.carmackfx.domain.User;
+import com.istudio.carmackfx.model.domain.User;
 import com.istudio.carmackfx.interfaces.TokenService;
 
 import java.util.HashMap;
@@ -12,7 +12,7 @@ public class DefaultTokenService implements TokenService {
     @Override
     public long create(User user) {
 
-        long token = user.getUsername().hashCode();
+        long token = user.getId().hashCode();
         map.put(token, user);
 
         return token;

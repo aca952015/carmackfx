@@ -7,6 +7,7 @@ import com.istudio.carmackfx.annotation.TContext;
 import com.istudio.carmackfx.annotation.TParam;
 import com.istudio.carmackfx.annotation.TPublic;
 import com.istudio.carmackfx.interfaces.TokenService;
+import com.istudio.carmackfx.agent.SessionInfo;
 import com.istudio.carmackfx.protocol.*;
 import com.istudio.carmackfx.utils.AnnotationUtils;
 import lombok.Data;
@@ -182,7 +183,7 @@ public abstract class ServiceMessageProcessor implements MessageProcessor {
             if(sessionInfo != null) {
                 context.setSessionId(sessionInfo.getSessionId());
                 context.setToken(sessionInfo.getToken());
-                context.setUsername(sessionInfo.getUsername());
+                context.setId(sessionInfo.getId());
                 context.setNickname(sessionInfo.getNickname());
             }
 

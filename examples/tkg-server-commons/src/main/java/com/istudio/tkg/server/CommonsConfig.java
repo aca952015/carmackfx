@@ -1,6 +1,6 @@
 package com.istudio.tkg.server;
 
-import com.istudio.carmackfx.domain.User;
+import com.istudio.carmackfx.model.domain.User;
 import com.istudio.tkg.server.utils.RedisObjectSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

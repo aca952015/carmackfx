@@ -1,18 +1,16 @@
 package com.istudio.carmackfx.agent;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.beykery.jkcp.KcpOnUdp;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 public class SessionInfo {
 
-    private String sessionId;
+    private long sessionId;
     private long token;
-    private String username;
+    private String id;
     private String nickname;
     private KcpOnUdp client;
 }

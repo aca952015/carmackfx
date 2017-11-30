@@ -7,10 +7,10 @@ import com.istudio.carmackfx.agent.SessionManager;
 import com.istudio.carmackfx.agent.impls.DefaultSecurityService;
 import com.istudio.carmackfx.agent.impls.DefaultTokenService;
 import com.istudio.carmackfx.annotation.TProcessor;
-import com.istudio.carmackfx.domain.AuthResult;
-import com.istudio.carmackfx.domain.User;
 import com.istudio.carmackfx.interfaces.SecurityService;
 import com.istudio.carmackfx.interfaces.TokenService;
+import com.istudio.carmackfx.model.domain.User;
+import com.istudio.carmackfx.model.response.AuthResponse;
 import com.istudio.carmackfx.protocol.MessageConsts;
 import com.istudio.carmackfx.protocol.MessageIn;
 import com.istudio.carmackfx.protocol.MessageOut;
@@ -18,7 +18,6 @@ import com.istudio.carmackfx.protocol.MessageType;
 import lombok.extern.slf4j.Slf4j;
 import org.beykery.jkcp.KcpOnUdp;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -40,6 +39,7 @@ public class SecurityMessageProcessor implements MessageProcessor {
     private SessionManager sessionManager;
 
     private Class<?> authParameterType;
+    private boolean isVoidParameterType;
 
     @Override
     public void init() {
@@ -59,6 +59,10 @@ public class SecurityMessageProcessor implements MessageProcessor {
 
             tokenService = new DefaultTokenService();
         }
+
+        if(authParameterType.getName().equals("System.lang.Void")) {
+            isVoidParameterType = true;
+        }
     }
 
     @Override
@@ -68,41 +72,38 @@ public class SecurityMessageProcessor implements MessageProcessor {
 
             Object argu = null;
 
-            if(!authParameterType.getName().equals("System.lang.Void")) {
+            if(isVoidParameterType == false) {
                 argu = JSON.parseObject(msgIn.getData(), authParameterType);
             }
-
-            AuthResult result = securityService.auth(argu);
 
             MessageOut msgOut = new MessageOut();
             msgOut.setId(msgIn.getId());
             msgOut.setSuccess(MessageConsts.MSG_SUCCESS);
             msgOut.setMode(MessageConsts.MSG_RESULT);
-            msgOut.setData(JSON.toJSONString(result));
 
-            if(result.getUser() == null
-                    || StringUtils.isEmpty(result.getUser().getUsername())) {
-                result.setSuccess(false);
-            }
+            User user = securityService.auth(argu);
 
-            if(result.isSuccess()) {
+            AuthResponse response = new AuthResponse();
+            if(user != null) {
 
-                User user = result.getUser();
+                response.setSuccess(true);
 
-                long token = tokenService.create(result.getUser());
+                long token = tokenService.create(user);
 
                 SessionInfo sessionInfo = new SessionInfo(
-                        user.getUsername(),
+                        user.getId().hashCode(),
                         token,
-                        user.getUsername(),
+                        user.getId(),
                         user.getNickname(),
                         client
                 );
 
-                sessionManager.createSession(user.getUsername(), sessionInfo);
+                sessionManager.createSession(token, sessionInfo);
 
                 msgOut.setToken(token);
             }
+
+            msgOut.setData(JSON.toJSONString(response));
 
             return msgOut;
         } catch (Exception e) {

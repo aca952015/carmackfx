@@ -1,13 +1,15 @@
 package com.istudio.tkg.server.model.domain;
 
 import lombok.Data;
+import org.springframework.data.annotation.Id;
 
 import java.util.Date;
 
 @Data
 public class Account {
 
-    private Long id;
+    @Id
+    private String id;
     private String email;
     private String phone;
     private String nickname;

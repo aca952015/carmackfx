@@ -24,7 +24,7 @@ public class AccountService {
 
         log.info("user register: {}, {}", email, password);
 
-        if(accountRepo.exists(email) > 0) {
+        if(accountRepo.existsByEmail(email)) {
             throw new MessageException("Email已经被使用。");
         }
 
@@ -32,7 +32,7 @@ public class AccountService {
         account.setEmail(email);
         account.setPassword(password);
 
-        if(accountRepo.create(account) < 1) {
+        if(accountRepo.insert(account) == null) {
             return false;
         }
 

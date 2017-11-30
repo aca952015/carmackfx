@@ -1,4 +1,4 @@
-package com.istudio.tkg.server.model.dto;
+package com.istudio.tkg.server.model.request;
 
 import lombok.Data;
 

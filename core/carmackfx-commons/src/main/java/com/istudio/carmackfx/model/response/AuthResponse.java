@@ -1,4 +1,4 @@
-package com.istudio.carmackfx.domain;
+package com.istudio.carmackfx.model.response;
 
 import lombok.Data;
 
@@ -6,8 +6,7 @@ import lombok.Data;
  * Created by ACA on 2017-6-8.
  */
 @Data
-public class AuthResult {
+public class AuthResponse {
 
-    private User user;
     private boolean success;
 }

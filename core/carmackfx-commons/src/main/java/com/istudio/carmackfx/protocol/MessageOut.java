@@ -12,7 +12,7 @@ public class MessageOut {
 
     private int size;
     private long id;
-    private byte mode;              // 0: result, 1: callback
+    private byte mode;              // 0: heartbeat, 1: result, 2: callback, 3: error
     private byte success;           // 0: true, 1: false
     private long token;             // security token
     private String data;            // json

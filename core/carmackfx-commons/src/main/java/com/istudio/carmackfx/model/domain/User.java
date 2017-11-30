@@ -1,10 +1,11 @@
-package com.istudio.carmackfx.domain;
+package com.istudio.carmackfx.model.domain;
 
 import lombok.Data;
 
 @Data
 public class User {
 
+    private String id;
     private String username;
     private String nickname;
 }

@@ -6,5 +6,5 @@ import com.istudio.carmackfx.protocol.MessageOut;
 @TService
 public interface CallbackService {
 
-    void send(String sessionId, MessageOut msgOut);
+    void send(Long sessionId, MessageOut msgOut);
 }

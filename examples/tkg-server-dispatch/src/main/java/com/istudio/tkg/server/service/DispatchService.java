@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Slf4j
 @Component("IDispatchService")
 @TPublic
@@ -18,7 +20,7 @@ public class DispatchService {
     private ServerRepo serverRepo;
 
     @TMethod("GetServers")
-    public Server[] getServers() throws MessageException {
+    public List getServers() throws MessageException {
 
         log.info("user get servers");
 

@@ -17,7 +17,7 @@ public class DefaultCallbackService implements CallbackService {
     private AgentServer agentServer;
 
     @Override
-    public void send(String sessionId, MessageOut msgOut) {
+    public void send(Long sessionId, MessageOut msgOut) {
 
         if(sessionManager.contains(sessionId)) {
 

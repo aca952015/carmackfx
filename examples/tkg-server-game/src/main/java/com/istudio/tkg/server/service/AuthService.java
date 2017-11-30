@@ -1,10 +1,9 @@
 package com.istudio.tkg.server.service;
 
-import com.istudio.carmackfx.domain.AuthResult;
-import com.istudio.carmackfx.domain.User;
+import com.istudio.carmackfx.model.response.AuthResponse;
 import com.istudio.carmackfx.interfaces.SecurityService;
 import com.istudio.carmackfx.interfaces.TokenService;
-import com.istudio.tkg.server.model.dto.AuthRequest;
+import com.istudio.tkg.server.model.request.AuthRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,9 +16,9 @@ public class AuthService implements SecurityService<AuthRequest> {
     private TokenService tokenService;
 
     @Override
-    public AuthResult auth(AuthRequest request) {
+    public AuthResponse auth(AuthRequest request) {
 
-        AuthResult result = new AuthResult();
+        AuthResponse result = new AuthResponse();
 
         if(tokenService.verify(request.getToken())) {
 

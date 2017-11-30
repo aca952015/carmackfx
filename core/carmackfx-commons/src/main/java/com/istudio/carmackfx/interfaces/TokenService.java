@@ -1,7 +1,7 @@
 package com.istudio.carmackfx.interfaces;
 
 import com.istudio.carmackfx.annotation.TService;
-import com.istudio.carmackfx.domain.User;
+import com.istudio.carmackfx.model.domain.User;
 
 @TService
 public interface TokenService {

@@ -1,6 +1,6 @@
 package com.istudio.tkg.server.toolbox;
 
-import com.istudio.carmackfx.domain.User;
+import com.istudio.carmackfx.model.domain.User;
 import com.istudio.carmackfx.interfaces.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
