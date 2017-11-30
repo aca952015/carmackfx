@@ -18,19 +18,6 @@
         id, email, phone, nickname, password, is_enabled, create_time, create_user, update_time, update_user
     </sql>
 
-    <!--<select id="getAll" resultMap="BaseResultMap"  >-->
-        <!--SELECT-->
-        <!--<include refid="Base_Column_List" />-->
-        <!--FROM users-->
-    <!--</select>-->
-
-    <!--<select id="getOne" parameterType="java.lang.Long" resultMap="BaseResultMap" >-->
-        <!--SELECT-->
-        <!--<include refid="Base_Column_List" />-->
-        <!--FROM users-->
-        <!--WHERE id = #{id}-->
-    <!--</select>-->
-
     <select id="exists" parameterType="string" resultType="int">
         select count(email)
         from user
@@ -51,22 +38,4 @@
         from user
         where email = #{email}
     </select>
-
-    <!--<update id="update" parameterType="com.neo.entity.UserEntity" >-->
-        <!--UPDATE-->
-        <!--users-->
-        <!--SET-->
-        <!--<if test="userName != null">userName = #{userName},</if>-->
-        <!--<if test="passWord != null">passWord = #{passWord},</if>-->
-        <!--nick_name = #{nickName}-->
-        <!--WHERE-->
-        <!--id = #{id}-->
-    <!--</update>-->
-
-    <!--<delete id="delete" parameterType="java.lang.Long" >-->
-        <!--DELETE FROM-->
-        <!--users-->
-        <!--WHERE-->
-        <!--id =#{id}-->
-    <!--</delete>-->
 </mapper>
