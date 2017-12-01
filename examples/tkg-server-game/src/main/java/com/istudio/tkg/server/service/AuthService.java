@@ -1,5 +1,6 @@
 package com.istudio.tkg.server.service;
 
+import com.istudio.carmackfx.model.domain.User;
 import com.istudio.carmackfx.model.response.AuthResponse;
 import com.istudio.carmackfx.interfaces.SecurityService;
 import com.istudio.carmackfx.interfaces.TokenService;
@@ -16,16 +17,13 @@ public class AuthService implements SecurityService<AuthRequest> {
     private TokenService tokenService;
 
     @Override
-    public AuthResponse auth(AuthRequest request) {
-
-        AuthResponse result = new AuthResponse();
+    public User auth(AuthRequest request) {
 
         if(tokenService.verify(request.getToken())) {
 
-            result.setSuccess(true);
-            result.setUser(tokenService.get(request.getToken()));
+            return tokenService.get(request.getToken());
         }
 
-        return result;
+        return null;
     }
 }

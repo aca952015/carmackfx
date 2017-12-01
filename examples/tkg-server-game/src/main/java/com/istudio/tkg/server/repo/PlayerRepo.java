@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface PlayerRepo extends MongoRepository<Player, String> {
 
     Player findByOwner(String owner);
+    boolean existsByOwner(String owner);
 }

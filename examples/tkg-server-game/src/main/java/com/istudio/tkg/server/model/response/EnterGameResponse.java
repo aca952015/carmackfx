@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class EnterGameResponse {
 
-    private int stateStatus;
+    private int status;
 }
