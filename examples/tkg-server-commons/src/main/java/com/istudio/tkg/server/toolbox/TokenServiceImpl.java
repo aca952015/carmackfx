@@ -2,6 +2,7 @@ package com.istudio.tkg.server.toolbox;
 
 import com.istudio.carmackfx.model.domain.User;
 import com.istudio.carmackfx.interfaces.TokenService;
+import com.istudio.carmackfx.utils.IdUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.core.RedisOperations;
@@ -16,23 +17,28 @@ import java.util.concurrent.TimeUnit;
 public class TokenServiceImpl implements TokenService {
 
     @Autowired
-    private RedisTemplate<Long, User> redisTemplate;
+    private RedisTemplate<String, User> tokenRedisTemplate;
 
     @Override
     public long create(User user) {
 
         if(user != null && !StringUtils.isEmpty(user.getUsername())) {
 
-            long token = user.getUsername().hashCode();
+            long token = IdUtils.gen().hashCode();
+            String key = getKey(token);
 
-            Object val = redisTemplate.execute(new SessionCallback<Object>() {
+            if(key == null) {
+                return 0;
+            }
+
+            Object val = tokenRedisTemplate.execute(new SessionCallback<Object>() {
                 @Override
                 public  Object execute(RedisOperations operations) throws DataAccessException {
 
                     try {
                         operations.multi();
-                        operations.opsForValue().set(token, user);
-                        operations.expire(token, 1, TimeUnit.HOURS);
+                        operations.opsForValue().set(key, user);
+                        operations.expire(key, 1, TimeUnit.HOURS);
                         return operations.exec();
                     } catch (Exception e) {
                         return null;
@@ -48,15 +54,24 @@ public class TokenServiceImpl implements TokenService {
         return 0;
     }
 
+    private String getKey(Long token) {
+
+        if(token == null) {
+            return null;
+        }
+
+        return "token(" + token.toString() + ")";
+    }
+
     @Override
     public boolean verify(long token) {
 
-        return redisTemplate.hasKey(token);
+        return tokenRedisTemplate.hasKey(getKey(token));
     }
 
     @Override
     public User get(long token) {
 
-        return redisTemplate.opsForValue().get(token);
+        return tokenRedisTemplate.opsForValue().get(getKey(token));
     }
 }

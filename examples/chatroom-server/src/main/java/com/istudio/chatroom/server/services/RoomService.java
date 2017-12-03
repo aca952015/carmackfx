@@ -26,7 +26,7 @@ public class RoomService {
     @TMethod("Join")
     public boolean join(@TContext MessageContext context) {
 
-        log.info("user join {}", context.getUsername());
+        log.info("user join {}", context.getId());
 
         sessionManager.forEach((session) -> {
 
@@ -43,7 +43,7 @@ public class RoomService {
     @TMethod("Chat")
     public boolean chat(@TContext MessageContext context, @TParam("msg") String msg) {
 
-        log.info("user chat {}", context.getUsername());
+        log.info("user chat {}", context.getId());
 
         sessionManager.forEach((session) -> {
 

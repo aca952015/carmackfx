@@ -1,6 +1,8 @@
 package com.istudio.carmackfx.agent;
 
 import com.alibaba.fastjson.JSON;
+import com.istudio.carmackfx.exceptions.MessageException;
+import com.istudio.carmackfx.model.consts.ErrorCodes;
 import com.istudio.carmackfx.protocol.*;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.PooledByteBufAllocator;
@@ -166,7 +168,7 @@ public class AgentServer extends KcpServer {
     @Override
     public void handleException(Throwable ex, KcpOnUdp kcp) {
 
-        log.error("handle exception.", ex);
+        log.error("handle exceptions.", ex);
     }
 
     @Override

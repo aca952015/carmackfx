@@ -1,5 +1,6 @@
 package com.istudio.carmackfx.agent;
 
+import com.istudio.carmackfx.model.consts.ErrorCodes;
 import lombok.Getter;
 import lombok.Setter;
 

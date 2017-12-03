@@ -36,7 +36,7 @@ public abstract class ServiceBase {
             try {
 
                 ByteBuffer buffer = iprot.readBinary();
-                return FstUtils.read(buffer, type);
+                return FstUtils.deserialize(buffer, type);
             } catch(Exception e) {
 
                 e.printStackTrace();
@@ -74,7 +74,8 @@ public abstract class ServiceBase {
 
             try {
 
-                oprot.writeBinary(FstUtils.write(value));
+                ByteBuffer buffer = ByteBuffer.wrap(FstUtils.serialize(value));
+                oprot.writeBinary(buffer);
             } catch(Exception e) {
 
                 e.printStackTrace();

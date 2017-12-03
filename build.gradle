@@ -9,6 +9,7 @@ buildscript {
         springCloudVersion = "Dalston.SR3"
         springRedisVersion = "1.8.6.RELEASE"
         lombokVersion = "1.16.18"
+        akkaVersion = "2.5.7"
         kotlinVersion = '1.1.60'
         fastjsonVersion = "1.2.31"
         jkcpVersion = "1.2.5"

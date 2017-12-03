@@ -31,8 +31,4 @@ public class Player {
 
     private LinkedList<Card> cards;
     private LinkedList<Item> items;
-
-    public void init() {
-
-    }
 }

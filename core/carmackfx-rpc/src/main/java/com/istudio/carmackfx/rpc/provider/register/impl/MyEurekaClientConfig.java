@@ -1,6 +1,6 @@
 package com.istudio.carmackfx.rpc.provider.register.impl;
 
-import com.istudio.carmackfx.config.Consts;
+import com.istudio.carmackfx.model.consts.ConfigConsts;
 import com.istudio.carmackfx.rpc.common.ConfigProperties;
 import com.istudio.carmackfx.rpc.common.ServiceInfo;
 import com.netflix.discovery.DefaultEurekaClientConfig;
@@ -15,7 +15,7 @@ public class MyEurekaClientConfig extends DefaultEurekaClientConfig {
 
     public MyEurekaClientConfig(ServiceInfo info, ConfigProperties properties) {
 
-        super(Consts.REGISTER_CENTER_EUREKA_NAMESPACE);
+        super(ConfigConsts.REGISTER_CENTER_EUREKA_NAMESPACE);
 
         this.info = info;
         this.properties = properties;
@@ -27,7 +27,7 @@ public class MyEurekaClientConfig extends DefaultEurekaClientConfig {
         String region = super.getRegion();
         if(region == null) {
 
-            return Consts.REGISTER_CENTER_EUREKA_REGION;
+            return ConfigConsts.REGISTER_CENTER_EUREKA_REGION;
         }
 
         return region;

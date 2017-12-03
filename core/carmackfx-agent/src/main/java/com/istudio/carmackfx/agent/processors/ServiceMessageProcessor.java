@@ -6,8 +6,12 @@ import com.istudio.carmackfx.agent.impls.DefaultTokenService;
 import com.istudio.carmackfx.annotation.TContext;
 import com.istudio.carmackfx.annotation.TParam;
 import com.istudio.carmackfx.annotation.TPublic;
+import com.istudio.carmackfx.exceptions.MessageException;
 import com.istudio.carmackfx.interfaces.TokenService;
 import com.istudio.carmackfx.agent.SessionInfo;
+import com.istudio.carmackfx.model.consts.ErrorCodes;
+import com.istudio.carmackfx.model.request.RpcMessageArgument;
+import com.istudio.carmackfx.model.request.RpcMessageData;
 import com.istudio.carmackfx.protocol.*;
 import com.istudio.carmackfx.utils.AnnotationUtils;
 import lombok.Data;
@@ -80,7 +84,7 @@ public abstract class ServiceMessageProcessor implements MessageProcessor {
             throw new AgentException(ErrorCodes.METHOD_NOT_FOUND);
         }
 
-        Object[] args = buildArgs(method, sessionManager.getSession(client), data.arguments);
+        Object[] args = buildArgs(method, sessionManager.getSession(client), data.getArguments());
 
         try {
             Object result = method.invoke(serviceInstance, args);
@@ -191,22 +195,6 @@ public abstract class ServiceMessageProcessor implements MessageProcessor {
         }
 
         return args;
-    }
-
-    @Data
-    private static class RpcMessageData {
-
-        private String serviceName;
-        private String methodName;
-        private Map<String, RpcMessageArgument> arguments;
-    }
-
-    @Data
-    private static class RpcMessageArgument {
-
-        private String argumentName;
-        private String argumentValue;
-        private boolean isValueType;
     }
 
     @Data

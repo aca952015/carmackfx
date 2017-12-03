@@ -1,4 +1,4 @@
-package com.istudio.carmackfx.agent;
+package com.istudio.carmackfx.model.consts;
 
 public enum ErrorCodes {
 
@@ -8,7 +8,12 @@ public enum ErrorCodes {
     ILLEGAL_ARGUMENT("ILLEGAL_ARGUMENT", 1003),
     BUSINESS_ERROR("BUSINESS_ERROR", 1004),
     SERVICE_NOT_PUBLIC("SERVICE_NOT_PUBLIC", 1005),
-    TOKEN_INVALID("TOKEN_INVALID", 1006);
+    TOKEN_INVALID("TOKEN_INVALID", 1006),
+    TOKEN_SERVICE_NOT_FOUND("TOKEN_SERVICE_NOT_FOUND", 1007),
+    ACTOR_SERVICE_NOT_FOUND("TOKEN_SERVICE_NOT_FOUND", 1008),
+    ACTOR_REQUEST_INVALID("ACTOR_REQUEST_INVALID", 1009),
+    ACTOR_OUNT_FOUND("ACTOR_OUNT_FOUND", 1010)
+    ;
 
     private String message;
     private int code;

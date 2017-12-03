@@ -1,6 +1,6 @@
 package com.istudio.carmackfx.rpc.consumer.discovery.impl;
 
-import com.istudio.carmackfx.config.Consts;
+import com.istudio.carmackfx.model.consts.ConfigConsts;
 import com.istudio.carmackfx.rpc.common.ConfigProperties;
 import com.istudio.carmackfx.rpc.common.ServiceInfo;
 import com.istudio.carmackfx.rpc.consumer.discovery.ServiceDiscovery;
@@ -55,7 +55,7 @@ public class EurekaServiceDiscovery implements ServiceDiscovery {
             serviceInfo.setId(UUID.randomUUID().toString());
             serviceInfo.setGroup(instanceInfo.getAppGroupName());
             serviceInfo.setHost(pairs[0]);
-            serviceInfo.setPort(pairs.length == 2 ? Integer.valueOf(pairs[1]) : Consts.SERVER_DEFAULT_PORT);
+            serviceInfo.setPort(pairs.length == 2 ? Integer.valueOf(pairs[1]) : ConfigConsts.SERVER_DEFAULT_PORT);
             serviceInfo.setVersion(ServiceUtils.getVersion(iface));
 
             return serviceInfo;

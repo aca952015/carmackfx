@@ -1,4 +1,4 @@
-package com.istudio.carmackfx.protocol;
+package com.istudio.carmackfx.exceptions;
 
 public class MessageException extends Exception {
 

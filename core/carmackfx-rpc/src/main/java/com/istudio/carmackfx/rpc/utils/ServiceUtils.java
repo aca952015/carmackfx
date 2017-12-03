@@ -1,7 +1,7 @@
 package com.istudio.carmackfx.rpc.utils;
 
 import com.istudio.carmackfx.annotation.TService;
-import com.istudio.carmackfx.config.Consts;
+import com.istudio.carmackfx.model.consts.ConfigConsts;
 import org.springframework.util.StringUtils;
 
 /**
@@ -19,10 +19,10 @@ public class ServiceUtils {
         if(iface.isAnnotationPresent(TService.class)) {
 
             TService ann = (TService)iface.getAnnotation(TService.class);
-            return StringUtils.isEmpty(ann.group()) ? Consts.SERVICE_BASE_GROUP : ann.group();
+            return StringUtils.isEmpty(ann.group()) ? ConfigConsts.SERVICE_BASE_GROUP : ann.group();
         }
 
-        return Consts.SERVICE_BASE_GROUP;
+        return ConfigConsts.SERVICE_BASE_GROUP;
     }
 
     public static String getVersion(Class iface) {
@@ -30,10 +30,10 @@ public class ServiceUtils {
         if(iface.isAnnotationPresent(TService.class)) {
 
             TService ann = (TService)iface.getAnnotation(TService.class);
-            return StringUtils.isEmpty(ann.version()) ? Consts.SERVICE_BASE_VERSION : ann.version();
+            return StringUtils.isEmpty(ann.version()) ? ConfigConsts.SERVICE_BASE_VERSION : ann.version();
         }
 
-        return Consts.SERVICE_BASE_VERSION;
+        return ConfigConsts.SERVICE_BASE_VERSION;
     }
 
     public static boolean isTService(Class iface) {

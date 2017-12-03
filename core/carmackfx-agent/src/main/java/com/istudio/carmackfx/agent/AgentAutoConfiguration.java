@@ -2,6 +2,7 @@ package com.istudio.carmackfx.agent;
 
 import com.istudio.carmackfx.agent.impls.DefaultCallbackService;
 import com.istudio.carmackfx.agent.impls.DefaultClientManager;
+import com.istudio.carmackfx.agent.processors.ActorMessageProcessor;
 import com.istudio.carmackfx.agent.processors.InternalMessageProcessor;
 import com.istudio.carmackfx.agent.processors.SecurityMessageProcessor;
 import com.istudio.carmackfx.agent.processors.PublicMessageProcessor;
@@ -48,6 +49,11 @@ public class AgentAutoConfiguration {
     @Bean
     public InternalMessageProcessor internalMessageProcessor() {
         return new InternalMessageProcessor();
+    }
+
+    @Bean
+    public ActorMessageProcessor actorMessageProcessor() {
+        return new ActorMessageProcessor();
     }
 
     @Bean

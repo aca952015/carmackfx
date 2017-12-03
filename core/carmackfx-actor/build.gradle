@@ -1,0 +1,10 @@
+buildscript {
+}
+
+dependencies {
+
+    compile("org.springframework.boot:spring-boot-starter:${springBootVersion}")
+    compile("com.typesafe.akka:akka-actor_2.12:${akkaVersion}")
+
+    compile project (":carmackfx-commons")
+}

@@ -4,7 +4,7 @@ import com.istudio.carmackfx.annotation.TContext;
 import com.istudio.carmackfx.annotation.TMethod;
 import com.istudio.carmackfx.annotation.TPublic;
 import com.istudio.carmackfx.protocol.MessageContext;
-import com.istudio.carmackfx.protocol.MessageException;
+import com.istudio.carmackfx.exceptions.MessageException;
 import com.istudio.tkg.server.model.consts.PlayerCharacterStatus;
 import com.istudio.tkg.server.model.response.EnterGameResponse;
 import com.istudio.tkg.server.repo.PlayerRepo;

@@ -1,7 +1,5 @@
 package com.istudio.carmackfx.annotation;
 
-import com.istudio.carmackfx.config.Consts;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

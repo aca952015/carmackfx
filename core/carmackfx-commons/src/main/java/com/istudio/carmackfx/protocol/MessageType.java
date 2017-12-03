@@ -8,7 +8,8 @@ public enum MessageType {
     HEARTBEAT(0),
     SECURITY(1),
     INTERNAL(2),
-    PUBLIC(3);
+    PUBLIC(3),
+    ACTOR(4);
 
     private int type;
 

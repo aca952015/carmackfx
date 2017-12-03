@@ -2,8 +2,7 @@ package com.istudio.tkg.server.service;
 
 import com.istudio.carmackfx.annotation.TMethod;
 import com.istudio.carmackfx.annotation.TPublic;
-import com.istudio.carmackfx.protocol.MessageException;
-import com.istudio.tkg.server.model.domain.Server;
+import com.istudio.carmackfx.exceptions.MessageException;
 import com.istudio.tkg.server.repo.ServerRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

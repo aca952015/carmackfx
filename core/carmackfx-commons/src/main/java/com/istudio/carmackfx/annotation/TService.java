@@ -1,6 +1,6 @@
 package com.istudio.carmackfx.annotation;
 
-import com.istudio.carmackfx.config.Consts;
+import com.istudio.carmackfx.model.consts.ConfigConsts;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -13,6 +13,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface TService {
-    String group() default Consts.SERVICE_BASE_GROUP;
-    String version() default Consts.SERVICE_BASE_VERSION;
+    String group() default ConfigConsts.SERVICE_BASE_GROUP;
+    String version() default ConfigConsts.SERVICE_BASE_VERSION;
 }

@@ -12,23 +12,26 @@ import java.nio.ByteBuffer;
 public class FstUtils {
     static FSTConfiguration conf = FSTConfiguration.createDefaultConfiguration();
 
-    public static Object read(ByteBuffer buffer, Class clazz) throws Exception {
+    public static Object deserialize(byte[] buffer, Class clazz) throws Exception {
 
-        byte[] bufferData = new byte[buffer.remaining()];
-        buffer.get(bufferData);
-
-        ByteArrayInputStream stream = new ByteArrayInputStream(bufferData);
+        ByteArrayInputStream stream = new ByteArrayInputStream(buffer);
         FSTObjectInput in = conf.getObjectInput(stream);
         Object result = in.readObject(clazz);
-        // DON'T: in.close(); here prevents reuse and will result in an exception
+        // DON'T: in.close(); here prevents reuse and will result in an exceptions
         stream.close();
         return result;
     }
 
-    public static ByteBuffer write(Object object) throws Exception {
+    public static Object deserialize(ByteBuffer buffer, Class clazz) throws Exception {
 
-        byte[] data = conf.asByteArray(object);
+        byte[] bufferData = new byte[buffer.remaining()];
+        buffer.get(bufferData);
 
-        return ByteBuffer.wrap(data);
+        return deserialize(bufferData, clazz);
+    }
+
+    public static byte[] serialize(Object object) throws Exception {
+
+        return conf.asByteArray(object);
     }
 }
